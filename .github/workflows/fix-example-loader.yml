@@ -1,0 +1,59 @@
+name: Fix homepage example loader
+
+on:
+  push:
+    paths:
+      - '.site/fix-examples.trigger'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix-homepage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Move example loader to real page end
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          text=p.read_text(encoding='utf-8')
+          marker='<!-- EXAMPLE_IMAGE_LOADER_V1 -->'
+          # Remove any previous loader, including one accidentally inserted inside a JS fallback string.
+          text=re.sub(r'\s*<!-- EXAMPLE_IMAGE_LOADER_V1 -->\s*<script>.*?</script>\s*','',text,flags=re.S)
+          loader=r'''<!-- EXAMPLE_IMAGE_LOADER_V1 -->
+          <script>
+          (async()=>{
+            try{
+              const files=['./.site/exjs.part01','./.site/exjs.part02','./.site/exjs.part03','./.site/exjs.part04'];
+              const parts=await Promise.all(files.map(async p=>{const r=await fetch(p+'?v=examples2',{cache:'no-store'});if(!r.ok)throw new Error(p+' '+r.status);return r.text();}));
+              const s=document.createElement('script');
+              s.textContent=parts.join('');
+              document.body.appendChild(s);
+            }catch(e){console.error('homepage examples failed',e);}
+          })();
+          </script>'''
+          pos=text.rfind('</body>')
+          if pos < 0:
+              raise SystemExit('real body closing tag not found')
+          text=text[:pos]+loader+'\n'+text[pos:]
+          p.write_text(text,encoding='utf-8')
+          PY
+      - name: Sanity check
+        shell: bash
+        run: |
+          grep -q 'EXAMPLE_IMAGE_LOADER_V1' index.html
+          grep -q "exjs.part04" index.html
+      - name: Commit fixed homepage
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'Fix generated homepage example loader'
+          git push
