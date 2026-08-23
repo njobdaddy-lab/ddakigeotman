@@ -65,7 +65,7 @@ button,input,textarea{font:inherit}button{color:inherit}.app{max-width:1080px;ma
 .detail-shell{max-width:760px;margin:0 auto}.detail-callout{background:linear-gradient(145deg,#071b3b,#183967);color:#fff;border-radius:20px;padding:21px;margin-top:16px}.detail-callout h2{margin:0 0 8px;font-size:23px}.detail-callout p{margin:0;color:#dbe4f0;line-height:1.6;font-size:12px}
 .module-head{display:flex;align-items:center;gap:11px;margin:14px 0}.module-title{font-size:25px;font-weight:950}.module-sub{font-size:11px;color:var(--muted);font-weight:750}
 .card{background:#fff;border:1px solid var(--line);border-radius:21px;padding:19px;margin-bottom:13px}.card h2{margin:0 0 6px;font-size:20px}.desc{color:var(--muted);font-size:12px;line-height:1.6;margin-bottom:14px}.field{margin-top:16px}.label{font-size:12px;font-weight:950;margin-bottom:7px}.hint{font-size:10px;color:#8c94a0;line-height:1.5;margin-top:6px}.choice{display:flex;gap:7px;flex-wrap:wrap}.choice button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 11px;font-size:11px;font-weight:900;cursor:pointer}.choice button.active,.single.active{background:var(--deep);color:#fff;border-color:var(--deep)}.wide{width:100%;border:1px solid var(--line);border-radius:13px;padding:12px 13px;outline:none;background:#fcfbf8}.wide:focus{border-color:#9aa8bd;box-shadow:0 0 0 3px #eff3fa}.textarea{min-height:130px;resize:vertical;line-height:1.6}.mini-input{display:none;margin-top:8px}.mini-input.show{display:block}.primary{border:0;background:var(--deep);color:#fff;border-radius:13px;padding:12px 14px;font-weight:950;cursor:pointer}.secondary{border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px 13px;font-weight:900;cursor:pointer}.actions{display:flex;gap:8px;flex-wrap:wrap}.notice{background:#eef9f4;border:1px solid #d4eee2;border-radius:14px;padding:12px 13px;font-size:11px;line-height:1.55;color:#355c50;margin-top:12px}.result{display:none;margin-top:14px}.result.show{display:block}.result textarea{width:100%;min-height:320px;border:1px solid var(--line);border-radius:14px;padding:13px;line-height:1.55;background:#f8fafc;resize:vertical;font-size:11px}.result-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}.single{padding:10px 12px;border-radius:13px;border:1px solid var(--line);background:#fff;font-size:11px;cursor:pointer;font-weight:850}
-.photo-placeholder{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;text-align:center;min-height:420px;display:grid;place-items:center}.photo-placeholder div{max-width:420px}.photo-placeholder h3{font-size:22px;margin:0}.photo-placeholder p{font-size:12px;color:var(--muted);line-height:1.6}.photo-placeholder button{margin-top:10px}
+.photo-tool{display:grid;gap:13px}.photo-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px}.photo-card h2{margin:0 0 6px;font-size:19px}.photo-card>p{margin:0;color:var(--muted);font-size:11px;line-height:1.6}.photo-stepbar{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:1px 0}.photo-stepbar::-webkit-scrollbar{display:none}.photo-stepbar span{white-space:nowrap;border:1px solid #e4ddd1;background:#fff;border-radius:999px;padding:7px 10px;font-size:9px;font-weight:900;color:#6e7784}.photo-stepbar span:first-child{background:var(--deep);color:#fff;border-color:var(--deep)}.photo-upload{margin-top:13px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.photo-upload input{display:none}.photo-upload label{display:inline-flex;align-items:center;justify-content:center;border:0;background:var(--deep);color:#fff;border-radius:12px;padding:11px 14px;font-size:11px;font-weight:950;cursor:pointer}.photo-file-name{font-size:10px;color:#8a929e;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.photo-empty{margin-top:13px;border:1px dashed #d8d1c6;border-radius:15px;min-height:190px;display:grid;place-items:center;text-align:center;color:#949ba5;font-size:11px;background:#fcfbf7;padding:20px}.photo-editor{display:none;margin-top:13px}.photo-editor.show{display:block}.photo-toolbar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}.photo-toolbar button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px;font-size:10px;font-weight:900;cursor:pointer}.photo-toolbar button.active{background:var(--deep);color:#fff;border-color:var(--deep)}.photo-canvas-wrap{border:1px solid #ddd6ca;border-radius:14px;background:#f2efe8;overflow:hidden;display:grid;place-items:center;touch-action:none}.photo-canvas-wrap canvas{display:block;max-width:100%;height:auto;touch-action:none;cursor:crosshair}.photo-guide-note{margin-top:8px;padding:10px 11px;border-radius:12px;background:#fff6e2;border:1px solid #efdfb6;color:#755c2b;font-size:10px;line-height:1.55}.photo-ai-note{margin-top:10px;padding:11px 12px;border-radius:12px;background:#eef5ff;border:1px solid #d9e6fa;color:#46566f;font-size:10px;line-height:1.55}.photo-inline-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.photo-inline-actions button{font-size:10px}
 
 @media(max-width:820px){.nav{display:none}.hamb{display:flex}.hero-v3{grid-template-columns:1fr}.home-grid,.studio-grid{grid-template-columns:1fr 1fr}.swipe-row{grid-auto-columns:72%}.more-track{grid-auto-columns:30%}}
 @media(max-width:680px){
@@ -295,8 +295,87 @@ button,input,textarea{font:inherit}button{color:inherit}.app{max-width:1080px;ma
 </section>
 
 <section id="module-photo" class="module">
-  <div class="module-head"><button class="back" onclick="goBack()">← 뒤로</button><div><div class="module-title">사진에서 이것만 수정</div><div class="module-sub">선택 영역은 위치 힌트일 뿐, 그 안의 모든 것을 바꾸라는 뜻이 아니에요.</div></div></div>
-  <div class="photo-placeholder"><div><h3>사진 부분수정 도구</h3><p>현재 메인 홈페이지 개편과 별도로 이 도구의 업로드·영역 표시 기능을 복구 중입니다. 빈 화면 대신 상태를 명확히 표시하도록 임시 처리했습니다.</p><button class="primary" onclick="openModule('protect')">원본 보호 요청부터 만들기</button></div></div>
+  <div class="module-head"><button class="back" onclick="goBack()">← 뒤로</button><div><div class="module-title">사진에서 이것만 수정</div><div class="module-sub">원본은 그대로 두고, 수정 위치를 빨간 가이드로 따로 표시해요.</div></div></div>
+  <div class="photo-tool">
+    <div class="photo-stepbar"><span>1 원본 업로드</span><span>2 수정 위치 표시</span><span>3 수정 내용 입력</span><span>4 요청문 생성</span></div>
+
+    <div class="photo-card">
+      <h2>1. 원본 이미지를 올려주세요</h2>
+      <p>업로드한 원본 파일 자체는 수정하지 않습니다. 화면 위에만 빨간 표시를 얹어 별도의 위치 안내 이미지를 만들어요.</p>
+      <div class="photo-upload">
+        <label for="photoInput">사진 선택</label>
+        <input id="photoInput" type="file" accept="image/*" onchange="loadPhotoFile(event)">
+        <span class="photo-file-name" id="photoFileName">선택된 사진 없음</span>
+      </div>
+      <div class="photo-empty" id="photoEmpty">사진을 선택하면 이곳에서 손가락으로 수정할 위치를 표시할 수 있어요.</div>
+
+      <div class="photo-editor" id="photoEditor">
+        <div class="photo-toolbar">
+          <button class="active" data-brush="18" onclick="setPhotoBrush(18,this)">얇게</button>
+          <button data-brush="34" onclick="setPhotoBrush(34,this)">보통</button>
+          <button data-brush="54" onclick="setPhotoBrush(54,this)">넓게</button>
+          <button onclick="undoPhotoMark()">↶ 한 단계 취소</button>
+          <button onclick="clearPhotoMarks()">표시 전체 지우기</button>
+        </div>
+        <div class="photo-canvas-wrap"><canvas id="photoCanvas"></canvas></div>
+        <div class="photo-guide-note">
+          <b>빨간 표시와 번호 = 위치 힌트</b><br>
+          표시 안의 모든 것을 수정하라는 뜻이 아닙니다. 사용자가 아래에 적은 핵심 대상만 수정하도록 요청문에 자동으로 넣어요.
+        </div>
+        <div class="photo-inline-actions">
+          <button class="secondary" onclick="downloadPhotoGuide()">가이드 이미지 저장</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="photo-card">
+      <h2>2. 실제로 무엇을 바꿀까요?</h2>
+      <p>예: “케이크 위 딸기만 블루베리로 바꿔줘.” 선택 영역 안에 글자나 배경이 같이 들어가도, 요청하지 않았다면 유지하도록 정리합니다.</p>
+      <textarea id="photoEditCore" class="wide textarea" placeholder="예) 케이크 위 딸기 토핑만 블루베리로 바꿔줘"></textarea>
+
+      <div class="field">
+        <div class="label">특히 꼭 유지해야 할 것이 있나요?</div>
+        <div class="choice multi" id="photoKeep">
+          <button data-v="인물 얼굴과 인물 특징">얼굴/인물</button>
+          <button data-v="글자·숫자·날짜">글자/숫자</button>
+          <button data-v="로고와 QR 코드">로고/QR</button>
+          <button data-v="배경과 주변 장식">배경/장식</button>
+          <button data-v="구도·크롭·비율">구도/비율</button>
+          <button data-v="제품 외형과 모델 특징">제품 외형</button>
+          <button data-v="색감과 조명">색감/조명</button>
+        </div>
+        <div class="hint">선택하지 않아도 요청하지 않은 부분은 기본적으로 유지하도록 요청합니다.</div>
+      </div>
+
+      <div class="field">
+        <div class="label">어느 AI에서 사용할까요?</div>
+        <div class="choice" id="photoAiChoices">
+          <button class="active" data-v="GPT">GPT</button>
+          <button data-v="Gemini">Gemini</button>
+          <button data-v="Google Flow">Google Flow</button>
+          <button data-v="Claude Code">Claude Code</button>
+        </div>
+      </div>
+
+      <div class="photo-ai-note">
+        <b>AI에 넣을 순서</b><br>
+        ① 표시 없는 원본 이미지 → ② 빨간 표시가 있는 가이드 이미지 → ③ 아래에서 만든 요청문
+      </div>
+
+      <div class="actions" style="margin-top:13px">
+        <button class="primary" onclick="makePhotoPrompt()">부분수정 요청 만들기</button>
+      </div>
+
+      <div id="photoResult" class="result">
+        <textarea id="photoOutput" readonly></textarea>
+        <div class="result-actions">
+          <button class="secondary" onclick="copyText('photoOutput')">요청 복사</button>
+          <button class="secondary" onclick="downloadPhotoGuide()">가이드 이미지 저장</button>
+          <button id="photoOpenAiBtn" class="primary" onclick="openPhotoAI()">GPT 열기</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section id="module-similar" class="module">
@@ -338,7 +417,8 @@ setupSingleChoice('useChoices');setupSingleChoice('textChoices');setupSingleChoi
 setupSingleChoice('ratioChoices',v=>document.getElementById('customRatio').classList.toggle('show',v==='__custom_ratio__'));
 setupSingleChoice('moodChoices',v=>document.getElementById('customMood').classList.toggle('show',v==='__custom_mood__'));
 setupSingleChoice('aiChoices',v=>{const tips={GPT:'✨ GPT용: 핵심 목적·정확성·구성 조건을 분명하게 하되 필요 이상으로 장황하지 않게 만들어요.',Gemini:'✨ Gemini용: 결과물 정의와 만들면 안 되는 장면·물체를 더 구체적으로 막아줘요. 한 장에 여러 시안을 만들지 않도록 별도 제한도 추가해요.','Google Flow':'✨ Google Flow용: 결과물 형식·프레임·고정 요소를 명확하게 나누어 제작 지시처럼 정리해요.','Claude Code':'✨ Claude Code용: 이미지 생성 도구/스킬을 사용할 때 읽기 쉬운 작업지시서와 생성 후 검증 항목으로 정리해요.'};document.getElementById('aiTip').textContent=tips[v]||'';document.getElementById('openSelectedAiBtn').textContent=v+' 열기'});
-['similarKeep','recoverProblems','videoMove','videoKeep','protectKeep'].forEach(setupMulti);
+['similarKeep','recoverProblems','videoMove','videoKeep','protectKeep','photoKeep'].forEach(setupMulti);
+setupSingleChoice('photoAiChoices',v=>{const b=document.getElementById('photoOpenAiBtn');if(b)b.textContent=v+' 열기'});
 function buildAccuracy(core,accuracy){const specific=/(아이폰\s*\d+|iphone\s*\d+|갤럭시\s*[a-z]?\s*\d+|galaxy\s*[a-z]?\s*\d+|맥북|macbook|테슬라|bmw|benz|메르세데스|현대\s*\w+|기아\s*\w+)/i.test(core);if(accuracy==='similar')return '';if(accuracy==='exact'||specific)return `\n【실존 제품·모델 정확성】\n- 핵심 내용에 특정 실존 제품이나 모델명이 있다면 기억이나 추측에 의존하지 마세요.\n- 웹 검색이 가능한 경우 제조사 공식 제품 페이지나 공식 자료를 먼저 확인한 뒤 실제 외형을 기준으로 표현하세요.\n- 다른 세대·다른 모델·비슷한 제품으로 임의 대체하지 마세요.\n- 카메라 배열, 렌즈 위치, 프레임, 전면 형태, 버튼 등 모델을 식별하는 특징을 임의로 창작하지 마세요.\n- 공식 외형을 확인하기 어렵다면 다른 모델의 외형을 섞어서 그리지 마세요.\n`;return ''}
 function layoutGuide(core){const hasPrice=/가격|만원|원\b|할인|혜택|지원금|조건/i.test(core);if(!hasPrice)return '';return `\n【정보 배치 가이드】\n- 핵심 가격·혜택·조건이 있다면 서로 따로 노는 요소처럼 두지 말고 하나의 정보 묶음처럼 구성하세요.\n- 가장 중요한 가격 또는 핵심 메시지는 가장 강하게 강조하세요.\n- 공시지원금, 카드사용조건처럼 가격에 붙는 조건은 가격 아래 또는 가까운 보조 정보 영역에 정돈해 배치하세요.\n- 조건 문구는 가격보다 덜 강조하되 실제 홍보물에서 읽기 쉬운 크기와 대비를 확보하세요.\n- 관련 조건들은 크기·정렬·간격을 통일해 하나의 세트처럼 보이게 해주세요.\n`}
 function makeCreatePrompt(){const core=document.getElementById('createCore').value.trim();if(!core){alert('만들고 싶은 내용을 적어주세요.');return}let ratio=val('ratioChoices');if(ratio==='__custom_ratio__')ratio=normalizeSize(document.getElementById('customRatio').value);let mood=val('moodChoices');if(mood==='__custom_mood__')mood=document.getElementById('customMood').value.trim();const use=val('useChoices'),text=val('textChoices'),output=val('outputChoices'),accuracy=val('accuracyChoices'),ai=val('aiChoices');let outputText=output==='design'?'- 실제 설치 장면이나 목업이 아닌, 바로 사용할 수 있는 최종 그래픽 디자인 자체':output==='mockup'?'- 완성 디자인이 실제 공간·기기·인쇄물 등에 적용된 사용 모습을 보여주는 목업':'- 핵심 내용과 용도를 보고 최종 디자인 자체와 실제 사용 목업 중 더 적절한 형태를 선택';let base=`${use} 용도의 이미지를 만들어 주세요.\n\n【핵심 내용】\n${core}\n\n【출력 형태】\n${outputText}\n\n【기본 조건】\n- 출력 규격: ${ratio||'자동'}\n- 분위기: ${mood||'요청 내용에 어울리게'}\n- ${text==='글자 없음'?'이미지 안에 글자를 넣지 말 것':text==='지정 문구만'?'사용자가 지정한 문구만 사용하고 임의 문구를 추가하지 말 것':'사용자가 요청하지 않은 글자, 숫자, 로고는 넣지 말 것'}\n`+buildAccuracy(core,accuracy)+`\n【구성 원칙】\n- 핵심 메시지와 주요 피사체가 첫눈에 들어오도록 정보 위계를 분명하게 구성하세요.\n- 제목 → 핵심 조건/혜택 → 주요 제품 또는 피사체 → 가장 중요한 가격/메시지 순으로 자연스러운 시선 흐름을 만드세요.\n- 충분한 여백을 두고 실제 사용 가능한 완성도를 우선하세요.\n- 특히 VMD·포스터·홍보물이라는 표현을 실제 매장 내부나 진열대 설치 장면으로 해석하지 마세요. 최종 광고 그래픽 자체를 요청한 경우 그 디자인 자체를 만들어 주세요.\n`+layoutGuide(core);
@@ -350,6 +430,195 @@ document.getElementById('createOutput').value=base;document.getElementById('crea
 async function copyText(id){const t=document.getElementById(id).value;try{await navigator.clipboard.writeText(t);alert('복사했어요.')}catch(e){const el=document.getElementById(id);el.select();document.execCommand('copy');alert('복사했어요.')}}
 function openSelectedAI(){const ai=val('aiChoices');const out=document.getElementById('createOutput');if(!out.value)makeCreatePrompt();copyText('createOutput');setTimeout(()=>window.open(AI_URLS[ai]||AI_URLS.GPT,'_blank'),100)}
 function makeSimplePrompt(type){let out='';if(type==='similar'){const core=document.getElementById('similarCore').value.trim(),k=vals('similarKeep');out=`함께 첨부한 참고 이미지의 ${k.length?k.join(', '):'전체적인 분위기'}를 참고해서 새로운 이미지를 만들어 주세요.\n\n새로 만들 내용: ${core||'첨부 이미지와 비슷한 톤의 새 이미지'}\n\n참고 이미지를 그대로 복제하지 말고 선택한 시각적 특성만 참고하세요.`}if(type==='recover'){const p=vals('recoverProblems'),core=document.getElementById('recoverCore').value.trim();out=`이전 AI 편집 결과를 이어서 수정하지 말고, 처음 첨부한 원본 이미지에서 다시 작업해 주세요.\n\n원래 하려던 수정: ${core||'제가 요청한 수정만 적용'}\n이전 결과의 문제: ${p.length?p.join(', '):'원본에서 불필요한 부분까지 변형됨'}\n\n요청한 핵심 대상만 수정하고 그 외 원본은 유지하세요.`}if(type==='video'){const m=vals('videoMove'),k=vals('videoKeep');out=`첨부한 사진을 기반으로 짧고 자연스러운 영상을 만들어 주세요.\n\n움직임: ${m.length?m.join(', '):'과하지 않은 자연스러운 움직임'}\n바꾸면 안 되는 것: ${k.length?k.join(', '):'원본의 얼굴, 구도, 배경, 주요 특징'}\n\n원본을 새로 그리지 말고 자연스럽게 살아나는 정도로 움직임을 추가하세요.`}if(type==='protect'){const core=document.getElementById('protectCore').value.trim(),k=vals('protectKeep');out=`첨부한 원본 이미지를 편집해 주세요.\n\n실제 수정 요청: ${core||'제가 지정한 부분만 수정'}\n반드시 유지: ${k.length?k.join(', '):'요청하지 않은 모든 부분'}\n\n원본 이미지를 실제 수정 기준으로 사용하고 필요한 최소 영역만 수정하세요.`}document.getElementById(type+'Output').value=out;document.getElementById(type+'Result').classList.add('show')}
+
+let photoSourceImage=null;
+let photoSourceName='';
+let photoMarks=[];
+let photoCurrentStroke=null;
+let photoBrush=18;
+let photoDrawing=false;
+
+function setPhotoBrush(size,btn){
+  photoBrush=size;
+  document.querySelectorAll('.photo-toolbar button[data-brush]').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+}
+
+function loadPhotoFile(event){
+  const file=event.target.files&&event.target.files[0];
+  if(!file)return;
+  if(!file.type.startsWith('image/')){alert('이미지 파일을 선택해주세요.');return}
+  photoSourceName=file.name||'원본이미지';
+  document.getElementById('photoFileName').textContent=photoSourceName;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    const img=new Image();
+    img.onload=()=>{
+      photoSourceImage=img;
+      photoMarks=[];
+      photoCurrentStroke=null;
+      const canvas=document.getElementById('photoCanvas');
+      const maxSide=1800;
+      const scale=Math.min(1,maxSide/Math.max(img.naturalWidth||img.width,img.naturalHeight||img.height));
+      canvas.width=Math.max(1,Math.round((img.naturalWidth||img.width)*scale));
+      canvas.height=Math.max(1,Math.round((img.naturalHeight||img.height)*scale));
+      document.getElementById('photoEmpty').style.display='none';
+      document.getElementById('photoEditor').classList.add('show');
+      bindPhotoCanvas();
+      redrawPhotoCanvas();
+    };
+    img.onerror=()=>alert('이미지를 불러오지 못했습니다.');
+    img.src=reader.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function bindPhotoCanvas(){
+  const canvas=document.getElementById('photoCanvas');
+  if(canvas.dataset.bound==='1')return;
+  canvas.dataset.bound='1';
+  const point=e=>{
+    const r=canvas.getBoundingClientRect();
+    return {x:(e.clientX-r.left)*canvas.width/r.width,y:(e.clientY-r.top)*canvas.height/r.height};
+  };
+  canvas.addEventListener('pointerdown',e=>{
+    if(!photoSourceImage)return;
+    e.preventDefault();
+    canvas.setPointerCapture?.(e.pointerId);
+    const p=point(e);
+    const r=canvas.getBoundingClientRect();
+    const width=photoBrush*(canvas.width/r.width);
+    photoCurrentStroke={points:[p],width};
+    photoDrawing=true;
+    redrawPhotoCanvas();
+  });
+  canvas.addEventListener('pointermove',e=>{
+    if(!photoDrawing||!photoCurrentStroke)return;
+    e.preventDefault();
+    photoCurrentStroke.points.push(point(e));
+    redrawPhotoCanvas();
+  });
+  const finish=e=>{
+    if(!photoDrawing||!photoCurrentStroke)return;
+    e.preventDefault?.();
+    photoMarks.push(photoCurrentStroke);
+    photoCurrentStroke=null;
+    photoDrawing=false;
+    redrawPhotoCanvas();
+  };
+  canvas.addEventListener('pointerup',finish);
+  canvas.addEventListener('pointercancel',finish);
+}
+
+function drawPhotoStroke(ctx,stroke,index){
+  const pts=stroke.points||[];
+  if(!pts.length)return;
+  ctx.save();
+  ctx.lineCap='round';
+  ctx.lineJoin='round';
+  ctx.lineWidth=stroke.width;
+  ctx.strokeStyle='rgba(255,38,38,.38)';
+  ctx.fillStyle='rgba(255,38,38,.38)';
+  if(pts.length===1){
+    ctx.beginPath();ctx.arc(pts[0].x,pts[0].y,stroke.width/2,0,Math.PI*2);ctx.fill();
+  }else{
+    ctx.beginPath();ctx.moveTo(pts[0].x,pts[0].y);
+    for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i].x,pts[i].y);
+    ctx.stroke();
+  }
+  const p=pts[0];
+  const radius=Math.max(15,stroke.width*.42);
+  ctx.fillStyle='rgba(220,32,32,.96)';
+  ctx.beginPath();ctx.arc(p.x,p.y,radius,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fff';
+  ctx.font=`900 ${Math.max(16,radius*1.15)}px sans-serif`;
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(String(index+1),p.x,p.y+1);
+  ctx.restore();
+}
+
+function redrawPhotoCanvas(){
+  const canvas=document.getElementById('photoCanvas');
+  if(!canvas||!photoSourceImage)return;
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.drawImage(photoSourceImage,0,0,canvas.width,canvas.height);
+  photoMarks.forEach((s,i)=>drawPhotoStroke(ctx,s,i));
+  if(photoCurrentStroke)drawPhotoStroke(ctx,photoCurrentStroke,photoMarks.length);
+}
+
+function undoPhotoMark(){
+  if(photoCurrentStroke){photoCurrentStroke=null;photoDrawing=false}
+  else photoMarks.pop();
+  redrawPhotoCanvas();
+}
+
+function clearPhotoMarks(){
+  photoMarks=[];
+  photoCurrentStroke=null;
+  photoDrawing=false;
+  redrawPhotoCanvas();
+}
+
+function downloadPhotoGuide(){
+  if(!photoSourceImage){alert('먼저 원본 이미지를 선택해주세요.');return}
+  if(!photoMarks.length){alert('수정할 위치를 빨간색으로 표시해주세요.');return}
+  redrawPhotoCanvas();
+  const canvas=document.getElementById('photoCanvas');
+  canvas.toBlob(blob=>{
+    if(!blob){alert('가이드 이미지를 만들지 못했습니다.');return}
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='내말대로-수정위치-가이드.png';
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),500);
+  },'image/png',.96);
+}
+
+function makePhotoPrompt(){
+  if(!photoSourceImage){alert('먼저 원본 이미지를 선택해주세요.');return}
+  if(!photoMarks.length){alert('수정할 위치를 빨간색으로 표시해주세요.');return}
+  const core=document.getElementById('photoEditCore').value.trim();
+  if(!core){alert('실제로 무엇을 바꿀지 적어주세요.');return}
+  const keep=vals('photoKeep');
+  const ai=val('photoAiChoices')||'GPT';
+  let out=`이미지 편집 작업입니다.
+
+【첨부 이미지의 역할】
+1. 표시 없는 이미지 = 원본 이미지입니다. 실제 수정의 기준이며 가장 우선해서 사용하세요.
+2. 빨간 반투명 표시와 번호가 있는 이미지 = 수정 위치 안내 이미지입니다. 빨간 표시·번호·선 자체는 최종 결과에 포함하면 안 됩니다.
+
+【실제 수정 요청】
+${core}
+
+【부분수정 핵심 규칙】
+- 빨간 표시와 번호는 "어디를 볼지" 알려주는 위치 힌트일 뿐, 그 영역 안의 모든 요소를 수정하라는 뜻이 아닙니다.
+- 사용자가 위에서 말한 핵심 대상만 수정하세요.
+- 표시 영역 안에 우연히 포함된 글자, 숫자, 날짜, 얼굴, 제품, 배경, 장식, 로고, QR 등이 수정 요청 대상이 아니라면 원본 그대로 유지하세요.
+- 원본 이미지를 전체적으로 다시 그리거나 재구성하지 말고, 필요한 최소 범위만 편집하세요.
+- 요청하지 않은 구도, 크롭, 비율, 배치, 색감, 조명, 질감, 글자 위치, 제품 외형은 최대한 유지하세요.
+- 특정 실존 제품이나 모델이 보인다면 다른 세대·유사 모델처럼 임의로 재설계하지 마세요.
+- 재시도할 경우 이전 AI 수정본을 기준으로 이어서 수정하지 말고, 항상 첫 번째 첨부 원본에서 다시 시작하세요.
+- 최종 결과는 편집 완료 이미지 1장만 출력하세요.`;
+  if(keep.length)out+=`\n\n【특히 반드시 유지】\n- ${keep.join('\n- ')}`;
+  if(ai==='Gemini')out+=`\n\n【Gemini 추가 지시】\n- 두 첨부 이미지를 서로 다른 시안 2개로 해석하지 마세요. 첫 번째는 원본, 두 번째는 위치 안내용 가이드입니다.\n- 가이드 이미지의 빨간 표시를 디자인 요소로 재현하지 마세요.`;
+  else if(ai==='Google Flow')out+=`\n\n【Google Flow 추가 지시】\n- 한 프레임의 편집 결과로 작업하고, 요청하지 않은 장면 확장이나 전체 재디자인은 하지 마세요.`;
+  else if(ai==='Claude Code')out=`이미지 편집 작업을 수행하세요. 필요하면 연결된 이미지 편집/생성 도구를 사용하세요.\n\n${out}\n\n【작업 후 검증】\n- 원본과 비교해 요청하지 않은 부분이 바뀌지 않았는지 확인하세요.\n- 가이드의 빨간 표시나 번호가 결과에 남지 않았는지 확인하세요.`;
+  document.getElementById('photoOutput').value=out;
+  document.getElementById('photoResult').classList.add('show');
+  document.getElementById('photoOpenAiBtn').textContent=ai+' 열기';
+  document.getElementById('photoResult').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function openPhotoAI(){
+  if(!document.getElementById('photoOutput').value)makePhotoPrompt();
+  const out=document.getElementById('photoOutput').value;
+  if(!out)return;
+  copyText('photoOutput');
+  const ai=val('photoAiChoices')||'GPT';
+  setTimeout(()=>window.open(AI_URLS[ai]||AI_URLS.GPT,'_blank'),100);
+}
+
 function toggleHomeMenu(force){const el=document.getElementById('homeMenu');const show=typeof force==='boolean'?force:!el.classList.contains('show');el.classList.toggle('show',show);document.body.style.overflow=show?'hidden':''}
 const MODULE_NAMES=new Set(['photo','create','similar','recover','video','protect']);const PAGE_NAMES=new Set(['tools','studio','restore','upscale','animate']);
 let currentScreen='home';let fallbackStack=['home'];
