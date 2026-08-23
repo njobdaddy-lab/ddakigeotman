@@ -14,106 +14,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply Naemaldaero homepage
+      - name: Publish example assets
+        shell: bash
+        run: |
+          mkdir -p assets/examples
+          cp .site/example-edit.svg assets/examples/example-edit.svg
+          cp .site/example-poster.svg assets/examples/example-poster.svg
+          cp .site/example-restore.svg assets/examples/example-restore.svg
+          cp .site/example-video.svg assets/examples/example-video.svg
+      - name: Fix homepage example paths
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
-          import re
-
           p = Path('index.html')
           text = p.read_text(encoding='utf-8')
-
-          # Remove the old fetched-JS example loader. Examples are now normal static assets.
-          text = re.sub(
-              r'\n?<!-- EXAMPLE_IMAGE_LOADER_V1 -->\s*<script>.*?</script>',
-              '',
-              text,
-              flags=re.S,
-          )
-
-          # Brand
-          text = text.replace(
-              '<title>딱이것만 | AI 요청 최적화 · 사진 복원 · 영상화</title>',
-              '<title>내말대로 | AI 요청 최적화 · 사진 복원 · 영상화</title>',
-          )
-          text = text.replace('<strong>딱이것만</strong>', '<strong>내말대로</strong>')
-          text = text.replace('<h3>딱이것만</h3>', '<h3>내말대로</h3>')
-          text = text.replace(
-              '<div class="home-note">딱이것만 · AI를 어렵게 쓰지 않는 방법</div>',
-              '<div class="home-note">내말대로 · AI가 알아듣게, 원하는 범위만 정확하게</div>',
-          )
-          text = text.replace(
-              '<p>딱 필요한 기능만, 딱 좋은 결과만</p>',
-              '<p>필요한 부분만 정확하게, 결과는 내말대로</p>',
-          )
-
-          # Hero
-          hero = '''<section class="home-hero-new"><span class="spark-a">✦</span><span class="spark-b">✧</span><span class="spark-c">✦</span><div class="home-eyebrow">원하는 부분만 정확하게</div><h1>AI가 멋대로 말고,<br><em>내말대로.</em></h1><p>하고 싶은 말만 적으세요. AI가 알아듣게 정리해드려요.</p><div class="home-hero-line"></div></section>'''
-          text, hero_n = re.subn(
-              r'<section class="home-hero-new">.*?</section>',
-              hero,
-              text,
-              count=1,
-              flags=re.S,
-          )
-          if hero_n != 1:
-              raise SystemExit('home hero not found')
-
-          # Remove any previous static example section before re-inserting.
-          text = re.sub(
-              r'\s*<section class="nmd-examples">.*?</section>',
-              '',
-              text,
-              flags=re.S,
-          )
-
-          examples = '''
-          <section class="nmd-examples">
-            <div class="nmd-examples-head">
-              <span>내말대로 예시</span>
-              <h2>예쁘게보다 먼저, <em>원한 대로.</em></h2>
-              <p>AI가 멋대로 바꾸기 쉬운 상황을 실제 예시로 보여드려요.</p>
-            </div>
-            <div class="nmd-examples-grid">
-              <button class="nmd-example-card" onclick="openModule('photo')"><img loading="lazy" src="./.site/example-edit.svg?v=nmd6" alt="케이크 토핑만 바꾸는 정밀 부분 수정 예시"><strong>바꿀 건 이것만.</strong><small>선택한 부분만 수정하고 나머지는 그대로</small></button>
-              <button class="nmd-example-card" onclick="openModule('create')"><img loading="lazy" src="./.site/example-poster.svg?v=nmd6" alt="홍보물 가격만 바꾸는 실무 수정 예시"><strong>가격만 바꾸면 될 때.</strong><small>디자인을 다시 만들지 않고 필요한 정보만</small></button>
-              <button class="nmd-example-card" onclick="openPage('restore')"><img loading="lazy" src="./.site/example-restore.svg?v=nmd6" alt="오래된 아기 사진 자연 복원 예시"><strong>기억은 그대로.</strong><small>새로 그리지 않고 손상과 선명도만 복원</small></button>
-              <button class="nmd-example-card" onclick="openPage('animate')"><img loading="lazy" src="./.site/example-video.svg?v=nmd6" alt="복원 사진을 짧은 영상으로 만드는 예시"><strong>사진에서 움직이는 순간까지.</strong><small>복원한 사진을 자연스러운 짧은 영상으로</small></button>
-            </div>
-          </section>'''
-
-          benefits_match = re.search(r'<section class="home-benefits">.*?</section>', text, flags=re.S)
-          if not benefits_match:
-              raise SystemExit('home benefits section not found')
-          insert_at = benefits_match.end()
-          text = text[:insert_at] + examples + text[insert_at:]
-
-          css = r'''
-          /* NMD_EXAMPLES_START */
-          .nmd-examples{margin:20px 0 18px}.nmd-examples-head{text-align:center;padding:12px 8px 16px}.nmd-examples-head>span{display:inline-block;padding:7px 11px;border-radius:999px;background:var(--goldsoft);color:#91691b;font-size:10px;font-weight:950}.nmd-examples-head h2{margin:11px 0 5px;color:var(--deep);font-size:30px;letter-spacing:-1px}.nmd-examples-head h2 em{font-style:normal;color:var(--gold)}.nmd-examples-head p{margin:0;color:#737b88;font-size:12px}.nmd-examples-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.nmd-example-card{border:1px solid var(--softline);background:rgba(255,255,255,.92);border-radius:24px;padding:11px;text-align:left;cursor:pointer;box-shadow:0 12px 30px rgba(31,41,55,.055);transition:.17s;overflow:hidden}.nmd-example-card:hover{transform:translateY(-2px);box-shadow:0 17px 36px rgba(31,41,55,.08)}.nmd-example-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:17px;background:#f4efe5}.nmd-example-card strong{display:block;color:var(--deep);font-size:17px;margin:12px 6px 4px}.nmd-example-card small{display:block;color:#737b88;font-size:11px;line-height:1.5;margin:0 6px 7px}.restore-new{display:none!important}
-          @media(max-width:680px){.nmd-examples{margin-top:15px}.nmd-examples-head h2{font-size:24px}.nmd-examples-grid{grid-template-columns:1fr;gap:12px}.nmd-example-card{border-radius:20px;padding:9px}.nmd-example-card img{border-radius:14px}.nmd-example-card strong{font-size:16px}.home-hero-new h1{font-size:43px;line-height:1.06;letter-spacing:-2.5px}.home-hero-new p{font-size:14px;line-height:1.55;max-width:310px;margin-left:auto;margin-right:auto}}
-          /* NMD_EXAMPLES_END */'''
-
-          text = re.sub(
-              r'\s*/\* NMD_EXAMPLES_START \*/.*?/\* NMD_EXAMPLES_END \*/',
-              '',
-              text,
-              flags=re.S,
-          )
-          if '/* HOME_REDESIGN_END */' not in text:
-              raise SystemExit('home redesign css marker not found')
-          text = text.replace('/* HOME_REDESIGN_END */', css + '\n/* HOME_REDESIGN_END */', 1)
-
+          text = text.replace('./.site/example-edit.svg?v=nmd6', './assets/examples/example-edit.svg?v=nmd7')
+          text = text.replace('./.site/example-poster.svg?v=nmd6', './assets/examples/example-poster.svg?v=nmd7')
+          text = text.replace('./.site/example-restore.svg?v=nmd6', './assets/examples/example-restore.svg?v=nmd7')
+          text = text.replace('./.site/example-video.svg?v=nmd6', './assets/examples/example-video.svg?v=nmd7')
           p.write_text(text, encoding='utf-8')
-          print('Naemaldaero homepage applied')
           PY
-      - name: Commit homepage
+      - name: Commit homepage and assets
         shell: bash
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html
+          git add index.html assets/examples
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'Apply Naemaldaero branding and homepage examples'
+          git commit -m 'Serve homepage example images from public assets'
           git push
