@@ -4,6 +4,7 @@ let photoOriginalFile=null;
 let photoMarks=[]; // 모든 점과 굵기는 원본 이미지 좌표/픽셀 기준
 let photoCurrentStroke=null;
 let photoBrush=14; // 화면에서 보이는 CSS px 기준
+let photoMode='brush'; // brush | rect
 let photoDrawing=false;
 let photoEditorSnapshot=[];
 let photoGuideConfirmed=false;
@@ -12,7 +13,16 @@ let photoPointers=new Map();
 let photoPinch=null;
 let photoView={scale:1,minScale:1,offsetX:0,offsetY:0,stageW:1,stageH:1,dpr:1};
 
-function clonePhotoMarks(marks){return marks.map(s=>({width:s.width,points:s.points.map(p=>({x:p.x,y:p.y}))}))}
+function clonePhotoMarks(marks){return marks.map(s=>s.type==='rect'?{type:'rect',x1:s.x1,y1:s.y1,x2:s.x2,y2:s.y2,width:s.width}:{type:'brush',width:s.width,points:(s.points||[]).map(p=>({x:p.x,y:p.y}))})}
+function setPhotoMode(mode,btn){
+  photoMode=mode==='rect'?'rect':'brush';
+  document.querySelectorAll('[data-photo-mode]').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  const brushes=document.getElementById('photoBrushTools');
+  if(brushes)brushes.classList.toggle('hidden',photoMode!=='brush');
+  const tip=document.getElementById('photoEditorTip');
+  if(tip)tip.textContent=photoMode==='rect'?'한 손가락으로 네모 영역 지정 · 두 손가락으로 확대/이동':'한 손가락으로 자유표시 · 두 손가락으로 확대/이동';
+}
 function setPhotoBrush(size,btn){
   photoBrush=size;
   document.querySelectorAll('[data-photo-brush]').forEach(b=>b.classList.remove('active'));
@@ -89,17 +99,25 @@ function canvasPointToOriginal(clientX,clientY){
 function pointInsideOriginal(p){return photoSourceImage&&p.x>=0&&p.y>=0&&p.x<=photoSourceImage.naturalWidth&&p.y<=photoSourceImage.naturalHeight}
 
 function drawPhotoStrokeDisplay(ctx,stroke,isPrimary){
-  const pts=stroke.points||[];if(!pts.length)return;
-  ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
-  ctx.lineWidth=Math.max(1,stroke.width*photoView.scale);
-  ctx.strokeStyle='rgba(255,55,55,.42)';ctx.fillStyle='rgba(255,55,55,.42)';
   const cv=p=>({x:photoView.offsetX+p.x*photoView.scale,y:photoView.offsetY+p.y*photoView.scale});
-  if(pts.length===1){const p=cv(pts[0]);ctx.beginPath();ctx.arc(p.x,p.y,ctx.lineWidth/2,0,Math.PI*2);ctx.fill()}
-  else{const p0=cv(pts[0]);ctx.beginPath();ctx.moveTo(p0.x,p0.y);for(let i=1;i<pts.length;i++){const p=cv(pts[i]);ctx.lineTo(p.x,p.y)}ctx.stroke()}
-  if(isPrimary){
-    const p=cv(pts[0]);const radius=15;
-    ctx.fillStyle='rgba(220,32,32,.98)';ctx.beginPath();ctx.arc(p.x,p.y,radius,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#fff';ctx.font='900 16px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('1',p.x,p.y+1);
+  ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+  let anchor=null;
+  if(stroke.type==='rect'){
+    const a=cv({x:stroke.x1,y:stroke.y1}),b=cv({x:stroke.x2,y:stroke.y2});
+    const x=Math.min(a.x,b.x),y=Math.min(a.y,b.y),w=Math.abs(b.x-a.x),h=Math.abs(b.y-a.y);
+    ctx.fillStyle='rgba(255,55,55,.18)';ctx.strokeStyle='rgba(255,55,55,.78)';ctx.lineWidth=Math.max(2,stroke.width*photoView.scale);
+    ctx.fillRect(x,y,w,h);ctx.strokeRect(x,y,w,h);anchor={x,y};
+  }else{
+    const pts=stroke.points||[];if(!pts.length){ctx.restore();return}
+    ctx.lineWidth=Math.max(1,stroke.width*photoView.scale);
+    ctx.strokeStyle='rgba(255,55,55,.42)';ctx.fillStyle='rgba(255,55,55,.42)';
+    if(pts.length===1){const p=cv(pts[0]);ctx.beginPath();ctx.arc(p.x,p.y,ctx.lineWidth/2,0,Math.PI*2);ctx.fill()}
+    else{const p0=cv(pts[0]);ctx.beginPath();ctx.moveTo(p0.x,p0.y);for(let i=1;i<pts.length;i++){const p=cv(pts[i]);ctx.lineTo(p.x,p.y)}ctx.stroke()}
+    anchor=cv(pts[0]);
+  }
+  if(isPrimary&&anchor){
+    const radius=15;ctx.fillStyle='rgba(220,32,32,.98)';ctx.beginPath();ctx.arc(anchor.x,anchor.y,radius,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#fff';ctx.font='900 16px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('1',anchor.x,anchor.y+1);
   }
   ctx.restore();
 }
@@ -140,7 +158,9 @@ function bindPhotoEditor(){
     photoPointers.set(e.pointerId,local(e));
     if(photoPointers.size>=2){beginPhotoPinch();return}
     const p=canvasPointToOriginal(e.clientX,e.clientY);if(!pointInsideOriginal(p))return;
-    photoCurrentStroke={points:[{x:p.x,y:p.y}],width:photoBrush/photoView.scale};photoDrawing=true;renderPhotoEditor();
+    if(photoMode==='rect')photoCurrentStroke={type:'rect',x1:p.x,y1:p.y,x2:p.x,y2:p.y,width:Math.max(2,3/photoView.scale)};
+    else photoCurrentStroke={type:'brush',points:[{x:p.x,y:p.y}],width:photoBrush/photoView.scale};
+    photoDrawing=true;renderPhotoEditor();
   });
   canvas.addEventListener('pointermove',e=>{
     if(!photoPointers.has(e.pointerId))return;e.preventDefault();photoPointers.set(e.pointerId,local(e));
@@ -153,7 +173,9 @@ function bindPhotoEditor(){
     }
     if(!photoDrawing||!photoCurrentStroke)return;
     const p=canvasPointToOriginal(e.clientX,e.clientY);if(!pointInsideOriginal(p))return;
-    photoCurrentStroke.points.push({x:p.x,y:p.y});renderPhotoEditor();
+    if(photoCurrentStroke.type==='rect'){photoCurrentStroke.x2=p.x;photoCurrentStroke.y2=p.y}
+    else photoCurrentStroke.points.push({x:p.x,y:p.y});
+    renderPhotoEditor();
   });
   const finish=e=>{
     if(!photoPointers.has(e.pointerId))return;e.preventDefault?.();photoPointers.delete(e.pointerId);
@@ -181,12 +203,20 @@ function undoPhotoMark(){if(photoCurrentStroke){photoCurrentStroke=null;photoDra
 function clearPhotoMarks(){photoMarks=[];photoCurrentStroke=null;photoDrawing=false;renderPhotoEditor()}
 
 function drawMarksAtOriginalResolution(ctx){
-  photoMarks.forEach((stroke,i)=>{
-    const pts=stroke.points||[];if(!pts.length)return;ctx.save();ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=stroke.width;ctx.strokeStyle='rgba(255,38,38,.40)';ctx.fillStyle='rgba(255,38,38,.40)';
-    if(pts.length===1){ctx.beginPath();ctx.arc(pts[0].x,pts[0].y,stroke.width/2,0,Math.PI*2);ctx.fill()}else{ctx.beginPath();ctx.moveTo(pts[0].x,pts[0].y);for(let j=1;j<pts.length;j++)ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke()}
-    if(i===0){const p=pts[0];const radius=Math.max(18,Math.min(56,16/(photoView.minScale||1)));ctx.fillStyle='rgba(220,32,32,.98)';ctx.beginPath();ctx.arc(p.x,p.y,radius,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.font=`900 ${Math.max(18,radius*1.05)}px sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('1',p.x,p.y+1)}ctx.restore();
+  photoMarks.forEach((mark,i)=>{
+    ctx.save();let anchor=null;
+    if(mark.type==='rect'){
+      const x=Math.min(mark.x1,mark.x2),y=Math.min(mark.y1,mark.y2),w=Math.abs(mark.x2-mark.x1),h=Math.abs(mark.y2-mark.y1);
+      ctx.fillStyle='rgba(255,38,38,.18)';ctx.strokeStyle='rgba(255,38,38,.82)';ctx.lineWidth=Math.max(2,mark.width||2);ctx.fillRect(x,y,w,h);ctx.strokeRect(x,y,w,h);anchor={x,y};
+    }else{
+      const pts=mark.points||[];if(!pts.length){ctx.restore();return}ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=mark.width;ctx.strokeStyle='rgba(255,38,38,.40)';ctx.fillStyle='rgba(255,38,38,.40)';
+      if(pts.length===1){ctx.beginPath();ctx.arc(pts[0].x,pts[0].y,mark.width/2,0,Math.PI*2);ctx.fill()}else{ctx.beginPath();ctx.moveTo(pts[0].x,pts[0].y);for(let j=1;j<pts.length;j++)ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke()}
+      anchor=pts[0];
+    }
+    if(i===0&&anchor){const radius=Math.max(18,Math.min(56,16/(photoView.minScale||1)));ctx.fillStyle='rgba(220,32,32,.98)';ctx.beginPath();ctx.arc(anchor.x,anchor.y,radius,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.font=`900 ${Math.max(18,radius*1.05)}px sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('1',anchor.x,anchor.y+1)}ctx.restore();
   });
 }
+
 function createOriginalGuideCanvas(){
   if(!photoSourceImage)return null;const c=document.createElement('canvas');c.width=photoSourceImage.naturalWidth;c.height=photoSourceImage.naturalHeight;const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.drawImage(photoSourceImage,0,0,c.width,c.height);drawMarksAtOriginalResolution(ctx);return c;
 }
