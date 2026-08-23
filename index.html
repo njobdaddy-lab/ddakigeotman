@@ -187,19 +187,7 @@ body{background:radial-gradient(circle at 9% 0%,rgba(255,232,178,.28),transparen
 const AI_URLS={GPT:'https://chatgpt.com/',Gemini:'https://gemini.google.com/', 'Google Flow':'https://labs.google/fx/tools/flow/', 'Claude Code':'https://claude.ai/code'};
 let photoLoaded=false;
 const PHOTO_B64='';
-function decodePhoto(){try{return decodeURIComponent(escape(atob(PHOTO_B64)))}catch(e){return '<!doctype html><html><body style="font-family:sans-serif;padding:30px">사진 부분 수정 도구를 불러오지 못했습니다.<!-- EXAMPLE_IMAGE_LOADER_V1 -->
-<script>
-(async()=>{
-  try{
-    const files=['./.site/exjs.part01','./.site/exjs.part02','./.site/exjs.part03','./.site/exjs.part04'];
-    const parts=await Promise.all(files.map(async p=>{const r=await fetch(p+'?v=examples1',{cache:'no-store'});if(!r.ok)throw new Error(p+' '+r.status);return r.text();}));
-    const s=document.createElement('script');
-    s.textContent=parts.join('');
-    document.body.appendChild(s);
-  }catch(e){console.error('homepage examples failed',e);}
-})();
-</script>
-</body></html>'}}
+function decodePhoto(){try{return decodeURIComponent(escape(atob(PHOTO_B64)))}catch(e){return '<!doctype html><html><body style="font-family:sans-serif;padding:30px">사진 부분 수정 도구를 불러오지 못했습니다.</body></html>'}}
 function setupSingleChoice(id,change){const wrap=document.getElementById(id);if(!wrap)return;wrap.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;[...wrap.querySelectorAll('button')].forEach(x=>x.classList.remove('active'));b.classList.add('active');if(change)change(b.dataset.v,b)})}
 function setupMulti(id){const wrap=document.getElementById(id);if(!wrap)return;wrap.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;b.classList.toggle('active')})}
 function val(id){const e=document.querySelector('#'+id+' button.active');return e?e.dataset.v:''}
@@ -236,6 +224,18 @@ function goHome(){if(currentScreen==='home'){window.scrollTo(0,0);return}fallbac
 window.addEventListener('popstate',e=>{if(fallbackStack.length>1)fallbackStack.pop();const screen=(e.state&&e.state.dikScreen)||fallbackStack[fallbackStack.length-1]||'home';if(!fallbackStack.includes(screen))fallbackStack.push(screen);renderScreen(screen)});
 document.querySelectorAll('.single').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('active')));
 renderScreen('home');
+</script>
+<!-- EXAMPLE_IMAGE_LOADER_V1 -->
+<script>
+(async()=>{
+  try{
+    const files=['./.site/exjs.part01','./.site/exjs.part02','./.site/exjs.part03','./.site/exjs.part04'];
+    const parts=await Promise.all(files.map(async p=>{const r=await fetch(p+'?v=examples2',{cache:'no-store'});if(!r.ok)throw new Error(p+' '+r.status);return r.text();}));
+    const s=document.createElement('script');
+    s.textContent=parts.join('');
+    document.body.appendChild(s);
+  }catch(e){console.error('homepage examples failed',e);}
+})();
 </script>
 </body>
 </html>
