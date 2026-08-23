@@ -1,3 +1,84 @@
+
+function ensureHomepageSwipePolish(){
+  if(document.getElementById('nmdSwipePolish'))return;
+  const style=document.createElement('style');
+  style.id='nmdSwipePolish';
+  style.textContent=`
+    .swipe-row,.more-track{scroll-snap-stop:always}
+    .service-card,.more-card{scroll-snap-stop:always}
+    @media(max-width:680px){
+      .swipe-row{
+        grid-auto-columns:86%;
+        gap:12px;
+        padding-inline:1px;
+        scroll-snap-type:x mandatory;
+        scroll-padding-inline:1px;
+        overscroll-behavior-x:contain;
+      }
+      .service-card{
+        height:356px;
+        min-height:356px;
+        padding:18px;
+        display:grid;
+        grid-template-rows:32px 50px 54px 136px 28px;
+        align-content:start;
+        overflow:hidden;
+      }
+      .service-top{height:32px;align-items:flex-start}
+      .service-card strong{
+        margin:8px 0 0;
+        font-size:20px;
+        line-height:1.22;
+        align-self:start;
+      }
+      .service-card p{
+        margin:4px 0 0;
+        font-size:11px;
+        line-height:1.55;
+        align-self:start;
+        overflow:hidden;
+      }
+      .service-thumb,.mini-flow{
+        margin-top:10px;
+        height:136px;
+        min-height:136px;
+      }
+      .service-thumb img{
+        object-fit:cover;
+        object-position:center;
+      }
+      .mini-flow{
+        padding:9px;
+        display:grid;
+        grid-template-rows:1fr auto 1fr;
+        align-items:stretch;
+        overflow:hidden;
+      }
+      .mini-flow .before,.mini-flow .after{
+        display:flex;
+        align-items:center;
+        min-height:0;
+        padding:7px 9px;
+        font-size:9.5px;
+        line-height:1.35;
+        overflow:hidden;
+      }
+      .mini-flow .arr{padding:2px;font-size:14px;line-height:1}
+      .service-link{
+        margin-top:8px;
+        align-self:end;
+        font-size:11px;
+        line-height:1.2;
+      }
+      .more-track{
+        scroll-snap-type:x mandatory;
+        overscroll-behavior-x:contain;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
 function ensurePhotoRegionUI(){
   const core=document.getElementById('photoEditCore');
   if(core){
@@ -11,12 +92,12 @@ function ensurePhotoRegionUI(){
   const bottom=document.querySelector('#photoFullEditor .photo-editor-bottom');
   if(bottom&&!document.getElementById('photoRegionTabs')){
     const bar=document.createElement('div');bar.className='photo-editor-region-bar';
-    bar.innerHTML='<span class="photo-region-label">수정 영역</span><div class="photo-region-tabs" id="photoRegionTabs"></div><div class="photo-region-actions"><button id="photoRegionDeleteBtn" onclick="deletePhotoRegion()" style="display:none">현재 영역 삭제</button></div>';
+    bar.innerHTML='<span class="photo-region-label">수정 영역</span><div class="photo-region-tabs" id="photoRegionTabs"></div><div class="photo-region-actions"><button id="photoBrushNewRegionBtn" onclick="addPhotoBrushRegion()" style="display:none">+ 다른 영역</button><button id="photoRegionDeleteBtn" onclick="deletePhotoRegion()" style="display:none">현재 영역 삭제</button></div>';
     bottom.insertBefore(bar,bottom.firstChild);
     const editor=document.getElementById('photoFullEditor');if(editor&&!document.getElementById('photoAutoToast')){const toast=document.createElement('div');toast.id='photoAutoToast';toast.className='photo-auto-toast';editor.appendChild(toast)}
   }
   if(!document.getElementById('photoRegionStyles')){
-    const style=document.createElement('style');style.id='photoRegionStyles';style.textContent=`.photo-region-inputs{display:grid;gap:11px;margin-top:14px}.photo-region-input-card{border:1px solid #e5ded3;background:#fcfbf8;border-radius:15px;padding:12px}.photo-region-input-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}.photo-region-number{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--deep);color:#fff;font-size:11px;font-weight:950;flex:none}.photo-region-input-head strong{font-size:12px}.photo-region-input-head small{margin-left:auto;color:#9299a3;font-size:9px}.photo-region-input-card textarea{width:100%;min-height:92px;border:1px solid #ded7cb;border-radius:12px;padding:11px 12px;background:#fff;resize:vertical;outline:none;line-height:1.55;font-size:11px;color:var(--deep)}.photo-region-input-card textarea:focus{border-color:#9aa8bd;box-shadow:0 0 0 3px #eff3fa}.photo-editor-region-bar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:7px}.photo-region-label{font-size:9px;font-weight:900;color:#aeb7c5;white-space:nowrap}.photo-region-tabs{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;min-width:0}.photo-region-tabs::-webkit-scrollbar{display:none}.photo-region-tabs button{width:32px;height:32px;flex:0 0 32px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:#172133;color:#fff;font-size:10px;font-weight:950;cursor:pointer}.photo-region-tabs button.active{background:#f0bf53;color:#071b3b;border-color:#f0bf53}.photo-region-actions{display:flex;gap:5px}.photo-region-actions button{border:1px solid rgba(255,255,255,.18);background:#172133;color:#fff;border-radius:9px;padding:8px 9px;font-size:8.5px;font-weight:900;white-space:nowrap;cursor:pointer}.photo-region-actions #photoRegionDeleteBtn{color:#ffb0b0}.photo-auto-toast{position:absolute;left:50%;bottom:16px;transform:translate(-50%,12px);z-index:8;width:max-content;max-width:calc(100% - 32px);padding:9px 13px;border-radius:999px;background:rgba(7,27,59,.94);border:1px solid rgba(255,255,255,.18);box-shadow:0 8px 28px rgba(0,0,0,.28);color:#fff;font-size:10px;font-weight:850;line-height:1.35;text-align:center;opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease}.photo-auto-toast.show{opacity:1;transform:translate(-50%,0)}@media(max-width:430px){.photo-region-input-card textarea{min-height:84px}.photo-editor-region-bar{grid-template-columns:auto minmax(0,1fr) auto}.photo-region-actions button{padding:8px 7px;font-size:8px}}`;
+    const style=document.createElement('style');style.id='photoRegionStyles';style.textContent=`.photo-region-inputs{display:grid;gap:11px;margin-top:14px}.photo-region-input-card{border:1px solid #e5ded3;background:#fcfbf8;border-radius:15px;padding:12px}.photo-region-input-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}.photo-region-number{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--deep);color:#fff;font-size:11px;font-weight:950;flex:none}.photo-region-input-head strong{font-size:12px}.photo-region-input-head small{margin-left:auto;color:#9299a3;font-size:9px}.photo-region-input-card textarea{width:100%;min-height:92px;border:1px solid #ded7cb;border-radius:12px;padding:11px 12px;background:#fff;resize:vertical;outline:none;line-height:1.55;font-size:11px;color:var(--deep)}.photo-region-input-card textarea:focus{border-color:#9aa8bd;box-shadow:0 0 0 3px #eff3fa}.photo-editor-region-bar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:7px}.photo-region-label{font-size:9px;font-weight:900;color:#aeb7c5;white-space:nowrap}.photo-region-tabs{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;min-width:0}.photo-region-tabs::-webkit-scrollbar{display:none}.photo-region-tabs button{width:32px;height:32px;flex:0 0 32px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:#172133;color:#fff;font-size:10px;font-weight:950;cursor:pointer}.photo-region-tabs button.active{background:#f0bf53;color:#071b3b;border-color:#f0bf53}.photo-region-actions{display:flex;gap:5px}.photo-region-actions button{border:1px solid rgba(255,255,255,.18);background:#172133;color:#fff;border-radius:9px;padding:8px 9px;font-size:8.5px;font-weight:900;white-space:nowrap;cursor:pointer}.photo-region-actions #photoBrushNewRegionBtn{color:#ffe095;border-color:rgba(240,191,83,.48)}.photo-region-actions #photoRegionDeleteBtn{color:#ffb0b0}.photo-auto-toast{position:absolute;left:50%;bottom:16px;transform:translate(-50%,12px);z-index:8;width:max-content;max-width:calc(100% - 32px);padding:9px 13px;border-radius:999px;background:rgba(7,27,59,.94);border:1px solid rgba(255,255,255,.18);box-shadow:0 8px 28px rgba(0,0,0,.28);color:#fff;font-size:10px;font-weight:850;line-height:1.35;text-align:center;opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease}.photo-auto-toast.show{opacity:1;transform:translate(-50%,0)}@media(max-width:430px){.photo-region-input-card textarea{min-height:84px}.photo-editor-region-bar{grid-template-columns:auto minmax(0,1fr) auto}.photo-region-actions button{padding:8px 7px;font-size:8px}}`;
     document.head.appendChild(style);
   }
 }
@@ -76,6 +157,8 @@ function renderPhotoRegionControls(){
       b.onclick=()=>selectPhotoRegion(n);tabs.append(b);
     }
   }
+  const add=document.getElementById('photoBrushNewRegionBtn');
+  if(add) add.style.display=(photoMode==='brush'&&photoMarks.length&&photoRegionCount<5)?'inline-flex':'none';
   const del=document.getElementById('photoRegionDeleteBtn');
   if(del)del.style.display=(photoMarks.length||photoRegionCount>1)?'inline-flex':'none';
 }
@@ -84,9 +167,13 @@ function regionHasMark(region,includeCurrent=false){
 }
 function selectPhotoRegion(region){
   if(region<1||region>photoRegionCount)return;
-  photoActiveRegion=region;photoRegionEditOverride=region;photoCurrentStroke=null;photoDrawing=false;
+  photoActiveRegion=region;
+  photoRegionEditOverride=photoMode==='rect'?region:null;
+  photoCurrentStroke=null;photoDrawing=false;
   renderPhotoRegionControls();renderPhotoEditor();
-  showPhotoAutoToast(`${region}번 영역 선택 · 다음 표시 1회가 이 번호에 추가돼요.`);
+  showPhotoAutoToast(photoMode==='brush'
+    ?`${region}번 영역 선택 · 계속 칠하면 이 번호에 추가돼요.`
+    :`${region}번 영역 선택 · 다음 네모 1회가 이 번호에 추가돼요.`);
 }
 function showPhotoAutoToast(message,ms=2200){
   const toast=document.getElementById('photoAutoToast');if(!toast)return;
@@ -99,6 +186,19 @@ function createNextPhotoRegion(){
   if(photoRegionTexts[photoActiveRegion]==null)photoRegionTexts[photoActiveRegion]='';
   renderPhotoRegionControls();renderPhotoRegionInputs();
   return photoActiveRegion;
+}
+function addPhotoBrushRegion(){
+  if(photoMode!=='brush')return;
+  if(!regionHasMark(photoActiveRegion,true)){
+    showPhotoAutoToast(`${photoActiveRegion}번 영역 위치를 먼저 표시해주세요.`);
+    return;
+  }
+  const next=createNextPhotoRegion();
+  if(next==null)return;
+  photoActiveRegion=next;
+  photoRegionEditOverride=null;
+  renderPhotoRegionControls();renderPhotoEditor();
+  showPhotoAutoToast(`${next}번 영역 시작 · 새 대상을 칠해주세요.`);
 }
 function distancePointToRegionScreen(p,region){
   let best=Infinity;
@@ -127,13 +227,9 @@ function choosePhotoRegionForNewMark(p){
   if(photoMode==='rect'){
     return createNextPhotoRegion();
   }
-  let bestRegion=1,best=Infinity;
-  for(let n=1;n<=photoRegionCount;n++){
-    const d=distancePointToRegionScreen(p,n);if(d<best){best=d;bestRegion=n}
-  }
-  const threshold=Math.min(76,Math.max(44,photoBrush*1.2));
-  if(best<=threshold){photoActiveRegion=bestRegion;renderPhotoRegionControls();return bestRegion}
-  return createNextPhotoRegion();
+  // 자유표시는 현재 번호에 계속 추가한다.
+  // 새 수정 대상은 사용자가 '+ 다른 영역'을 눌러 명확하게 분리한다.
+  return photoActiveRegion;
 }
 function trimTrailingEmptyPhotoRegions(){
   let changed=false;
@@ -156,9 +252,15 @@ function deletePhotoRegion(){
   renderPhotoRegionControls();renderPhotoRegionInputs();renderPhotoEditor();
 }
 function setPhotoMode(mode,btn){
-  photoMode=mode==='rect'?'rect':'brush';document.querySelectorAll('[data-photo-mode]').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');
+  photoMode=mode==='rect'?'rect':'brush';
+  photoRegionEditOverride=null;
+  document.querySelectorAll('[data-photo-mode]').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');
   const brushes=document.getElementById('photoBrushTools');if(brushes)brushes.classList.toggle('hidden',photoMode!=='brush');
-  const tip=document.getElementById('photoEditorTip');if(tip)tip.textContent=photoMode==='rect'?`현재 ${photoActiveRegion}번 · 한 손가락으로 네모 영역 지정 · 두 손가락으로 확대/이동`:`현재 ${photoActiveRegion}번 · 한 손가락으로 자유표시 · 두 손가락으로 확대/이동`;
+  renderPhotoRegionControls();
+  const tip=document.getElementById('photoEditorTip');
+  if(tip)tip.textContent=photoMode==='rect'
+    ?`네모를 그릴 때마다 1, 2, 3… 자동 번호 · 두 손가락 확대/이동`
+    :`현재 ${photoActiveRegion}번 · 계속 칠하면 같은 번호 · 새 대상은 + 다른 영역`;
 }
 function setPhotoBrush(size,btn){photoBrush=size;document.querySelectorAll('[data-photo-brush]').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active')}
 
@@ -207,13 +309,13 @@ function renderPhotoEditor(){
 function updatePhotoEditorStatus(){
   const missing=[];for(let n=1;n<=photoRegionCount;n++)if(!regionHasMark(n,true))missing.push(n);
   const el=document.getElementById('photoEditorStatus');
-  if(el)el.innerHTML=`<b>현재 ${photoActiveRegion}번</b> · 총 ${photoRegionCount}개 · 번호 자동 생성 · 원본 ${photoSourceImage?photoSourceImage.naturalWidth+'×'+photoSourceImage.naturalHeight+'px':''}`;
+  if(el)el.innerHTML=`<b>현재 ${photoActiveRegion}번</b> · 총 ${photoRegionCount}개 · 네모 자동 번호 · 원본 ${photoSourceImage?photoSourceImage.naturalWidth+'×'+photoSourceImage.naturalHeight+'px':''}`;
   const confirm=document.getElementById('photoEditorConfirm');if(confirm)confirm.disabled=missing.length>0;
   const z=document.getElementById('photoZoomChip');if(z&&photoView.minScale)z.textContent=Math.round(photoView.scale/photoView.minScale*100)+'%';
   const tip=document.getElementById('photoEditorTip');
   if(tip){
     if(photoRegionEditOverride!=null)tip.textContent=`${photoRegionEditOverride}번 수정 선택됨 · 다음 표시 1회가 이 번호에 추가`;
-    else tip.textContent=photoMode==='rect'?'네모를 그릴 때마다 1, 2, 3… 자동 번호 · 두 손가락 확대/이동':'같은 대상 근처는 같은 번호 · 다른 곳은 다음 번호 자동 · 두 손가락 확대/이동';
+    else tip.textContent=photoMode==='rect'?'네모를 그릴 때마다 1, 2, 3… 자동 번호 · 두 손가락 확대/이동':`현재 ${photoActiveRegion}번 · 계속 칠하면 같은 번호 · 새 대상은 + 다른 영역`;
   }
 }
 function beginPhotoPinch(){
@@ -232,7 +334,7 @@ function bindPhotoEditor(){
     if(!photoPointers.has(e.pointerId))return;e.preventDefault();photoPointers.set(e.pointerId,local(e));if(photoPointers.size>=2){if(!photoPinch)beginPhotoPinch();const pts=[...photoPointers.values()].slice(0,2),a=pts[0],b=pts[1],dist=Math.hypot(b.x-a.x,b.y-a.y)||1,mid={x:(a.x+b.x)/2,y:(a.y+b.y)/2};const maxScale=photoView.minScale*6;photoView.scale=Math.min(maxScale,Math.max(photoView.minScale,photoPinch.startScale*(dist/photoPinch.dist)));photoView.offsetX=mid.x-photoPinch.anchorX*photoView.scale;photoView.offsetY=mid.y-photoPinch.anchorY*photoView.scale;clampPhotoView();renderPhotoEditor();return}
     if(!photoDrawing||!photoCurrentStroke)return;const p=canvasPointToOriginal(e.clientX,e.clientY);if(!pointInsideOriginal(p))return;if(photoCurrentStroke.type==='rect'){photoCurrentStroke.x2=p.x;photoCurrentStroke.y2=p.y}else photoCurrentStroke.points.push({x:p.x,y:p.y});renderPhotoEditor();
   });
-  const finish=e=>{if(!photoPointers.has(e.pointerId))return;e.preventDefault?.();photoPointers.delete(e.pointerId);if(photoPinch){if(photoPointers.size<2)photoPinch=null;return}if(photoDrawing&&photoCurrentStroke){const completedRegion=photoCurrentStroke.region||1;photoMarks.push(photoCurrentStroke);photoCurrentStroke=null;photoDrawing=false;photoActiveRegion=completedRegion;renderPhotoRegionControls();renderPhotoRegionInputs();renderPhotoEditor();if(!photoAutoHintShown){photoAutoHintShown=true;showPhotoAutoToast('1번 영역이 만들어졌어요. 다른 곳을 표시하면 다음 번호가 자동으로 생겨요.',2500)}}};
+  const finish=e=>{if(!photoPointers.has(e.pointerId))return;e.preventDefault?.();photoPointers.delete(e.pointerId);if(photoPinch){if(photoPointers.size<2)photoPinch=null;return}if(photoDrawing&&photoCurrentStroke){const completedRegion=photoCurrentStroke.region||1;photoMarks.push(photoCurrentStroke);photoCurrentStroke=null;photoDrawing=false;photoActiveRegion=completedRegion;renderPhotoRegionControls();renderPhotoRegionInputs();renderPhotoEditor();if(!photoAutoHintShown){photoAutoHintShown=true;showPhotoAutoToast(photoMode==='brush'?'1번 영역이 만들어졌어요. 새 대상은 + 다른 영역을 눌러주세요.':'1번 영역이 만들어졌어요. 다음 네모는 2번으로 자동 생성돼요.',2500)}}};
   canvas.addEventListener('pointerup',finish);canvas.addEventListener('pointercancel',finish);window.addEventListener('resize',()=>{if(document.getElementById('photoFullEditor')?.classList.contains('show'))fitPhotoView()});
 }
 function openPhotoEditor(){
@@ -289,4 +391,4 @@ function makePhotoPrompt(){
 }
 function openPhotoAI(){if(!document.getElementById('photoOutput').value)makePhotoPrompt();const out=document.getElementById('photoOutput').value;if(!out)return;copyText('photoOutput');const ai=val('photoAiChoices')||'GPT';setTimeout(()=>window.open(AI_URLS[ai]||AI_URLS.GPT,'_blank'),100)}
 
-ensurePhotoRegionUI();renderPhotoRegionInputs();renderPhotoRegionControls();
+ensureHomepageSwipePolish();ensurePhotoRegionUI();renderPhotoRegionInputs();renderPhotoRegionControls();
