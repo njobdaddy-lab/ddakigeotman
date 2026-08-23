@@ -42,3 +42,16 @@ function goHome(){if(currentScreen==='home'){window.scrollTo(0,0);return}fallbac
 function scrollHome(id){if(currentScreen!=='home'){goHome();setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth'}),120)}else document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
 window.addEventListener('popstate',e=>{if(fallbackStack.length>1)fallbackStack.pop();const screen=(e.state&&e.state.nmdScreen)||fallbackStack[fallbackStack.length-1]||'home';if(!fallbackStack.includes(screen))fallbackStack.push(screen);renderScreen(screen)});
 renderScreen('home');
+
+function applyNaemaldaeroBrand(){
+  const iconHref='./assets/brand/logo-character.webp?v=brand1';
+  let icon=document.querySelector('link[rel="icon"]');
+  if(!icon){icon=document.createElement('link');icon.rel='icon';document.head.appendChild(icon)}
+  icon.type='image/webp';icon.href=iconHref;
+  let shortcut=document.querySelector('link[rel="shortcut icon"]');
+  if(!shortcut){shortcut=document.createElement('link');shortcut.rel='shortcut icon';document.head.appendChild(shortcut)}
+  shortcut.type='image/webp';shortcut.href=iconHref;
+  const sub=document.querySelector('.brand-new small');
+  if(sub)sub.textContent='AI 요청 · 이미지 편집 · 사진 복원 · 영상화';
+}
+applyNaemaldaeroBrand();
