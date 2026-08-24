@@ -59,3 +59,4 @@ jobs:
           git add -A
           git commit -m "Install verified Hero v3 binaries"
           git push origin HEAD:hero-v3-upload
+# retry 2
