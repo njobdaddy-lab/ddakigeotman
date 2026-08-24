@@ -100,10 +100,10 @@
 
 /* Dedicated hero example assets: same scene, only topping changes. */
 .nmd-proof-card.before img,.nmd-compare>img:first-child{
-  content:url("../examples/hero-before-strawberry.webp?v=hero-final-1");
+  content:url("../examples/hero-before-strawberry.jpg?v=hero-final-2");
 }
 .nmd-proof-card.after img,.nmd-compare-after{
-  content:url("../examples/hero-after-blueberry.webp?v=hero-final-1");
+  content:url("../examples/hero-after-blueberry.jpg?v=hero-final-2");
 }
 
 @media(max-width:767px){
