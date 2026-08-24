@@ -1,0 +1,61 @@
+name: Build verified Hero v3
+
+on:
+  push:
+    branches: [hero-v3-upload]
+    paths:
+      - '.github/workflows/hero-v3-build.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: hero-v3-upload
+      - name: Decode and verify Hero v3
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64, hashlib
+
+          root = Path('.hero-v3')
+          before = ''.join((root / f'before-{i:02d}.b64').read_text(encoding='utf-8') for i in range(6))
+          after = ''.join((root / f'after-{i:02d}.b64').read_text(encoding='utf-8') for i in range(5))
+
+          b1 = base64.b64decode(before, validate=True)
+          b2 = base64.b64decode(after, validate=True)
+
+          assert len(b1) == 66438, len(b1)
+          assert len(b2) == 53112, len(b2)
+          assert hashlib.sha256(b1).hexdigest() == '52e4024487a89eb31b750b0b1de4350bdaf2e613aedcbd441c281860c8f9040f'
+          assert hashlib.sha256(b2).hexdigest() == '2bd674624ec8918c05a07cea2467b9b9dcf4a91182f472d0f6773bf186b8d34f'
+          assert b1[:4] == b'RIFF' and b1[8:12] == b'WEBP'
+          assert b2[:4] == b'RIFF' and b2[8:12] == b'WEBP'
+
+          Path('assets/examples/hero-before-v3.webp').write_bytes(b1)
+          Path('assets/examples/hero-after-v3.webp').write_bytes(b2)
+
+          app_path = Path('assets/js/app.js')
+          app = app_path.read_text(encoding='utf-8')
+          old_before = 'hero-before-v2.webp?v=hero-v2-1'
+          old_after = 'hero-after-v2.webp?v=hero-v2-1'
+          if old_before not in app or old_after not in app:
+              raise SystemExit('Expected Hero v2 references not found')
+          app = app.replace(old_before, 'hero-before-v3.webp?v=hero-v3-1')
+          app = app.replace(old_after, 'hero-after-v3.webp?v=hero-v3-1')
+          app_path.write_text(app, encoding='utf-8')
+          PY
+
+          rm -rf .hero-v3
+          rm .github/workflows/hero-v3-build.yml
+
+          git config user.name "njobdaddy"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Install verified Hero v3 binaries"
+          git push origin HEAD:hero-v3-upload
