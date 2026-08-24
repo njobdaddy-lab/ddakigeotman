@@ -59,7 +59,7 @@ applyNaemaldaeroBrand();
 function applyStitchHomeStage1(){
   if(document.getElementById('nmdStitchStage1'))return;
   const css=document.createElement('link');
-  css.id='nmdStitchStage1';css.rel='stylesheet';css.href='./assets/css/home-stitch.css?v=stage1fix4';document.head.appendChild(css);
+  css.id='nmdStitchStage1';css.rel='stylesheet';css.href='./assets/css/home-stitch.css?v=stage1fix5';document.head.appendChild(css);
 
   const oldHeader=document.querySelector('header.topbar');
   if(oldHeader){oldHeader.outerHTML=`<header class="nmd-header">
@@ -99,16 +99,16 @@ function applyStitchHomeStage1(){
     </div>
     <div class="nmd-proof-desktop">
       <div class="nmd-proof-grid">
-        <div class="nmd-proof-card before"><img src="./assets/examples/hero-before-strawberry.jpg?v=hero-proof-1" alt="원본 이미지"><span class="nmd-proof-label">ORIGINAL</span></div>
-        <div class="nmd-proof-card after"><img src="./assets/examples/hero-after-blueberry.jpg?v=hero-proof-1" alt="수정 결과 이미지"><span class="nmd-proof-label">RESULT</span></div>
+        <div class="nmd-proof-card before"><img src="./assets/examples/hero-before-v2.webp?v=hero-v2-1" alt="원본 이미지"><span class="nmd-proof-label">ORIGINAL</span></div>
+        <div class="nmd-proof-card after"><img src="./assets/examples/hero-after-v2.webp?v=hero-v2-1" alt="수정 결과 이미지"><span class="nmd-proof-label">RESULT</span></div>
       </div>
       <div class="nmd-proof-summary"><div><span class="icon">✎</span><span>변경 1: 딸기 토핑 → 블루베리</span></div><span class="divider"></span><div class="muted"><span class="icon">▣</span><span>유지 6: 케이크 · 접시 · 배경 · 구도 · 조명 · 색감</span></div></div>
     </div>
     <div class="nmd-proof-mobile">
       <div class="nmd-compare-card">
         <div class="nmd-compare">
-          <img src="./assets/examples/hero-before-strawberry.jpg?v=hero-proof-1" alt="원본 이미지">
-          <img class="nmd-compare-after" src="./assets/examples/hero-after-blueberry.jpg?v=hero-proof-1" alt="수정 결과 이미지">
+          <img src="./assets/examples/hero-before-v2.webp?v=hero-v2-1" alt="원본 이미지">
+          <img class="nmd-compare-after" src="./assets/examples/hero-after-v2.webp?v=hero-v2-1" alt="수정 결과 이미지">
           <span class="nmd-compare-tag before">ORIGINAL</span><span class="nmd-compare-tag after">RESULT</span><span class="nmd-compare-line"></span><span class="nmd-compare-knob">↔</span>
         </div>
       </div>
