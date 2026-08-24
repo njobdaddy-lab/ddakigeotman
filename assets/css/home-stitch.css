@@ -98,14 +98,6 @@
 .nmd-hero-primary span{color:var(--nmd-gold);font-size:22px;margin-left:12px}
 .nmd-proof-mobile{display:none}
 
-/* Dedicated hero example assets: same scene, only topping changes. */
-.nmd-proof-card.before img,.nmd-compare>img:first-child{
-  content:url("../examples/hero-before-strawberry.jpg?v=hero-final-2");
-}
-.nmd-proof-card.after img,.nmd-compare-after{
-  content:url("../examples/hero-after-blueberry.jpg?v=hero-final-2");
-}
-
 @media(max-width:767px){
   .app{padding-left:0!important;padding-right:0!important;max-width:none!important}
   .nmd-header{position:fixed;left:0;right:0;top:0}
