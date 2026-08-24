@@ -1,0 +1,54 @@
+name: Mobile card inner padding v2
+
+on:
+  push:
+    branches: [mobile-card-inner-padding-v2]
+    paths:
+      - '.github/workflows/mobile-card-inner-padding-v2.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: mobile-card-inner-padding-v2
+      - name: Fix mobile workshop and CTA inner padding
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('assets/css/home-stitch.css')
+          css = p.read_text(encoding='utf-8')
+          old = '''  #home>.home-section .section-head,
+  #home>.examples .examples-head,
+  #home>.why-v3,
+  #home>.more-use .more-head,
+  #home>.workshop,
+  #home>.final-cta,
+  #home>.site-footer{padding-left:0!important;padding-right:0!important}
+'''
+          new = '''  #home>.home-section .section-head,
+  #home>.examples .examples-head,
+  #home>.why-v3,
+  #home>.more-use .more-head,
+  #home>.site-footer{padding-left:0!important;padding-right:0!important}
+  #home>.workshop,
+  #home>.final-cta{padding-left:18px!important;padding-right:18px!important}
+'''
+          if old not in css:
+              raise SystemExit('Expected mobile zero-padding selector not found')
+          css = css.replace(old, new, 1)
+          p.write_text(css, encoding='utf-8')
+          PY
+
+          rm .github/workflows/mobile-card-inner-padding-v2.yml
+          git config user.name "njobdaddy"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Fix mobile card inner padding"
+          git push origin HEAD:mobile-card-inner-padding-v2
