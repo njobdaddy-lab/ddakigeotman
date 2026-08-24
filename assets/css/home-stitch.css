@@ -98,6 +98,10 @@
 .nmd-hero-primary span{color:var(--nmd-gold);font-size:22px;margin-left:12px}
 .nmd-proof-mobile{display:none}
 
+/* Keep the hero proof tied to the same edit example, so only the requested topping changes. */
+.nmd-proof-card.before img,.nmd-compare>img:first-child{content:url("../examples/hero-before.svg?v=proof2")}
+.nmd-proof-card.after img,.nmd-compare-after{content:url("../examples/hero-after.svg?v=proof2")}
+
 @media(max-width:767px){
   .app{padding-left:0!important;padding-right:0!important;max-width:none!important}
   .nmd-header{position:fixed;left:0;right:0;top:0}
@@ -130,4 +134,25 @@
   .nmd-mobile-proof-info .icon{color:var(--nmd-gold);font-size:17px;line-height:1.1}
   .nmd-hero-actions{width:100%;margin-top:18px}
   .nmd-hero-primary{width:100%;height:52px;border-radius:4px;font-size:15px;min-width:0}
+
+  /* Old home sections still exist below stage 1. Keep them centered until stage 2 replaces them. */
+  #home>.home-section,
+  #home>.why-v3,
+  #home>.examples,
+  #home>.more-use,
+  #home>.workshop,
+  #home>.final-cta,
+  #home>.site-footer{
+    width:calc(100% - 32px)!important;
+    max-width:520px!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+  #home>.home-section .section-head,
+  #home>.examples .examples-head,
+  #home>.why-v3,
+  #home>.more-use .more-head,
+  #home>.workshop,
+  #home>.final-cta,
+  #home>.site-footer{padding-left:0!important;padding-right:0!important}
 }
