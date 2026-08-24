@@ -55,3 +55,79 @@ function applyNaemaldaeroBrand(){
   if(sub)sub.textContent='AI 요청 · 이미지 편집 · 사진 복원 · 영상화';
 }
 applyNaemaldaeroBrand();
+
+function applyStitchHomeStage1(){
+  if(document.getElementById('nmdStitchStage1'))return;
+  const css=document.createElement('link');
+  css.id='nmdStitchStage1';css.rel='stylesheet';css.href='./assets/css/home-stitch.css?v=stage1';document.head.appendChild(css);
+
+  const oldHeader=document.querySelector('header.topbar');
+  if(oldHeader){oldHeader.outerHTML=`<header class="nmd-header">
+    <div class="nmd-header-inner">
+      <button class="nmd-brand" onclick="goHome()" aria-label="홈으로"><img src="./assets/brand/logo-character.webp?v=brand1" alt="내말대로 로고"><span>내말대로</span></button>
+      <nav class="nmd-desktop-nav" aria-label="주요 메뉴">
+        <div class="nmd-services"><button class="nmd-services-toggle" type="button">서비스</button><div class="nmd-services-menu">
+          <small>무료 도구</small><button onclick="openModule('create')">요청문 만들기</button><button onclick="openModule('photo')">이미지 부분수정</button>
+          <small class="paid">결과 서비스</small><button onclick="openPage('restore')">사진 복원</button><button onclick="openPage('animate')">사진 영상화</button>
+        </div></div>
+        <button class="nmd-nav-link" onclick="scrollHome('examples')">사용 방법</button>
+        <button class="nmd-nav-link" onclick="openPage('studio')">가격·이용안내</button>
+        <button class="nmd-nav-link" type="button">자주 묻는 질문</button>
+      </nav>
+      <button class="nmd-header-cta" onclick="openModule('create')">무료로 시작하기</button>
+      <button class="nmd-mobile-menu-btn" onclick="toggleHomeMenu()" aria-label="메뉴 열기"><span></span></button>
+    </div>
+  </header>`}
+
+  const menu=document.getElementById('homeMenu');
+  if(menu){menu.className='mobile-menu nmd-mobile-menu';menu.innerHTML=`<div class="nmd-mobile-sheet">
+    <div class="nmd-drawer-head"><strong>내말대로</strong><button class="nmd-drawer-close" onclick="toggleHomeMenu(false)" aria-label="메뉴 닫기">×</button></div>
+    <div class="nmd-drawer-nav">
+      <div class="nmd-drawer-group"><small>무료 도구</small><button class="active" onclick="toggleHomeMenu(false);openModule('create')">요청문 만들기</button><button onclick="toggleHomeMenu(false);openModule('photo')">이미지 부분수정</button></div>
+      <div class="nmd-drawer-group"><small class="paid">결과 서비스</small><button onclick="toggleHomeMenu(false);openPage('restore')">사진 복원</button><button onclick="toggleHomeMenu(false);openPage('animate')">사진 영상화</button></div>
+      <div class="nmd-drawer-group nmd-drawer-plain"><button onclick="toggleHomeMenu(false);scrollHome('examples')">사용 방법</button><button onclick="toggleHomeMenu(false);openPage('studio')">가격·이용안내</button><button type="button">자주 묻는 질문</button><button onclick="toggleHomeMenu(false);openPage('studio')">문의하기</button></div>
+    </div>
+    <div class="nmd-drawer-foot"><button onclick="toggleHomeMenu(false);openModule('create')">무료로 시작하기 →</button></div>
+  </div>`}
+
+  const oldHero=document.querySelector('#home .hero-v3');
+  if(oldHero){oldHero.outerHTML=`<section class="nmd-hero">
+    <div class="nmd-hero-copy">
+      <div class="nmd-hero-badge"><img src="./assets/brand/logo-character.webp?v=brand1" alt=""><span>네, 말씀하신 부분만 바꿀게요.</span></div>
+      <h1>AI가 멋대로 말고,<br><em>내말대로.</em></h1>
+      <p class="nmd-hero-lead">하고 싶은 말만 적으세요.<br class="mobile-only"> 바꿀 건 정확하게, 나머지는 그대로 지키도록 정리해드려요.</p>
+    </div>
+    <div class="nmd-proof-desktop">
+      <div class="nmd-proof-grid">
+        <div class="nmd-proof-card before"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuANThx8kSpUuAw02C86gfJlzmqKpQ_yCidghjNOyhQ1TdU8YIHpDj42FeUuRBoaNGHpOLZTZPNApVuNrl2_Nt3sq378qRk2jdkRzxRYpUNUa2Z7Jn7MKBODvH6P0kgctlISipsbT8HREqPEicLwjt3jGlHA2SIcwkiQXYwrT9-wy9BH7ZprVRdfSo6LskonItC3FNf_-qIr3qsXfQrlb0l89--qO0qzE5GOReHdCvfyBCvMRJxsuNEr" alt="원본 이미지"><span class="nmd-proof-label">ORIGINAL</span></div>
+        <div class="nmd-proof-card after"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAF71eLl4iufYechGHlW3icFfkg1UxtidzG9nNgOy5YfRTKfEmap_dGIBHVvfJT3c8FLNlpZY2ZHJF9vKm66mazStZM_JpEFDEHg2bWMJV08RKll37p-E7OfhPNXAkrgn_-engdOBDdkTWIc_IKhDHKhOyHpTDZgNXea6s65jZEVThQOc4-PHNaN4Snjw0D2xrcw0-WBybSgbPMOrguByMkRAYmH4QCHtwrxqY8Ao8PJ-AO1Pb-EgpE" alt="수정 결과 이미지"><span class="nmd-proof-label">RESULT</span></div>
+      </div>
+      <div class="nmd-proof-summary"><div><span class="icon">✎</span><span>변경 1: 딸기 토핑 → 블루베리</span></div><span class="divider"></span><div class="muted"><span class="icon">▣</span><span>유지 6: 케이크 · 접시 · 배경 · 구도 · 조명 · 색감</span></div></div>
+    </div>
+    <div class="nmd-proof-mobile">
+      <div class="nmd-compare-card">
+        <div class="nmd-compare">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuANThx8kSpUuAw02C86gfJlzmqKpQ_yCidghjNOyhQ1TdU8YIHpDj42FeUuRBoaNGHpOLZTZPNApVuNrl2_Nt3sq378qRk2jdkRzxRYpUNUa2Z7Jn7MKBODvH6P0kgctlISipsbT8HREqPEicLwjt3jGlHA2SIcwkiQXYwrT9-wy9BH7ZprVRdfSo6LskonItC3FNf_-qIr3qsXfQrlb0l89--qO0qzE5GOReHdCvfyBCvMRJxsuNEr" alt="원본 이미지">
+          <img class="nmd-compare-after" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAF71eLl4iufYechGHlW3icFfkg1UxtidzG9nNgOy5YfRTKfEmap_dGIBHVvfJT3c8FLNlpZY2ZHJF9vKm66mazStZM_JpEFDEHg2bWMJV08RKll37p-E7OfhPNXAkrgn_-engdOBDdkTWIc_IKhDHKhOyHpTDZgNXea6s65jZEVThQOc4-PHNaN4Snjw0D2xrcw0-WBybSgbPMOrguByMkRAYmH4QCHtwrxqY8Ao8PJ-AO1Pb-EgpE" alt="수정 결과 이미지">
+          <span class="nmd-compare-tag before">ORIGINAL</span><span class="nmd-compare-tag after">RESULT</span><span class="nmd-compare-line"></span><span class="nmd-compare-knob">↔</span>
+        </div>
+      </div>
+      <div class="nmd-mobile-proof-info"><div><span class="icon">✎</span><span>변경 1: 딸기 토핑 → 블루베리</span></div><div><span class="icon">▣</span><span>유지 6: 케이크 · 접시 · 배경 · 구도 · 조명 · 색감</span></div></div>
+    </div>
+    <div class="nmd-hero-actions"><button class="nmd-hero-primary" onclick="openModule('create')">무료로 시작하기 <span>→</span></button></div>
+  </section>`}
+
+  setupStitchCompare();
+}
+
+function setupStitchCompare(){
+  const compare=document.querySelector('.nmd-compare');if(!compare)return;
+  const after=compare.querySelector('.nmd-compare-after'),line=compare.querySelector('.nmd-compare-line'),knob=compare.querySelector('.nmd-compare-knob');if(!after||!line||!knob)return;
+  let dragging=false;
+  const setAt=x=>{const r=compare.getBoundingClientRect();const p=Math.max(0,Math.min(100,((x-r.left)/r.width)*100));after.style.clipPath=`inset(0 0 0 ${p}%)`;line.style.left=p+'%';knob.style.left=p+'%'};
+  compare.addEventListener('pointerdown',e=>{dragging=true;compare.setPointerCapture?.(e.pointerId);setAt(e.clientX)});
+  compare.addEventListener('pointermove',e=>{if(dragging)setAt(e.clientX)});
+  compare.addEventListener('pointerup',()=>dragging=false);compare.addEventListener('pointercancel',()=>dragging=false);
+}
+
+applyStitchHomeStage1();
