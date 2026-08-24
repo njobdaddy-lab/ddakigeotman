@@ -21,31 +21,14 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-
           p = Path('assets/css/home-stitch.css')
           css = p.read_text(encoding='utf-8')
-          old = '''  #home>.home-section .section-head,
-  #home>.examples .examples-head,
-  #home>.why-v3,
-  #home>.more-use .more-head,
-  #home>.workshop,
-  #home>.final-cta,
-  #home>.site-footer{padding-left:0!important;padding-right:0!important}
-'''
-          new = '''  #home>.home-section .section-head,
-  #home>.examples .examples-head,
-  #home>.why-v3,
-  #home>.more-use .more-head,
-  #home>.site-footer{padding-left:0!important;padding-right:0!important}
-  #home>.workshop,
-  #home>.final-cta{padding-left:18px!important;padding-right:18px!important}
-'''
+          old = "  #home>.home-section .section-head,\n  #home>.examples .examples-head,\n  #home>.why-v3,\n  #home>.more-use .more-head,\n  #home>.workshop,\n  #home>.final-cta,\n  #home>.site-footer{padding-left:0!important;padding-right:0!important}\n"
+          new = "  #home>.home-section .section-head,\n  #home>.examples .examples-head,\n  #home>.why-v3,\n  #home>.more-use .more-head,\n  #home>.site-footer{padding-left:0!important;padding-right:0!important}\n  #home>.workshop,\n  #home>.final-cta{padding-left:18px!important;padding-right:18px!important}\n"
           if old not in css:
               raise SystemExit('Expected mobile zero-padding selector not found')
-          css = css.replace(old, new, 1)
-          p.write_text(css, encoding='utf-8')
+          p.write_text(css.replace(old, new, 1), encoding='utf-8')
           PY
-
           rm .github/workflows/mobile-card-inner-padding-v2.yml
           git config user.name "njobdaddy"
           git config user.email "actions@users.noreply.github.com"
