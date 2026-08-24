@@ -68,3 +68,15 @@ button,input,textarea{font:inherit}button{color:inherit}.app{max-width:1080px;ma
   .final-cta{grid-template-columns:1fr;padding:17px}.final-cta h2{font-size:21px}.final-cta button{width:100%}.site-footer{grid-template-columns:1fr 1fr}.foot-brand{grid-column:1/-1}.copyright{grid-column:1/-1}
   .home-grid,.studio-grid{grid-template-columns:1fr}.module-title{font-size:22px}.card{padding:16px}
 }
+
+
+/* nmd-mobile-workshop-spacing-v1 */
+@media(max-width:680px){
+  .workshop{padding:20px 18px 18px}
+  .workshop .section-label{margin-bottom:9px}
+  .workshop p{margin-top:10px}
+  .workshop button{margin-top:20px}
+  .workshop-grid{margin-top:22px}
+  .final-cta{margin-top:32px;padding:22px 18px;gap:20px}
+  .final-cta p{margin-top:9px}
+}
