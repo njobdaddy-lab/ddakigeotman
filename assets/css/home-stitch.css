@@ -100,11 +100,11 @@
 
 /* Dedicated local hero assets. Keep the original img tags only as JS clipping carriers. */
 .nmd-proof-card.before{
-  background-image:url('../examples/hero-before-strawberry.jpg?v=hero-proof-4');
+  background-image:url('../examples/hero-before-strawberry-1536.webp?v=hq-1536-1');
   background-size:cover;background-position:center;background-repeat:no-repeat;
 }
 .nmd-proof-card.after{
-  background-image:url('../examples/hero-after-blueberry.webp?v=hero-proof-3');
+  background-image:url('../examples/hero-after-blueberry-1536.webp?v=hq-1536-1');
   background-size:cover;background-position:center;background-repeat:no-repeat;
 }
 .nmd-proof-card.before img,.nmd-proof-card.after img{opacity:0}
@@ -128,10 +128,10 @@
   .nmd-proof-mobile{display:block;width:100%;max-width:520px;margin:0 auto}
   .nmd-compare-card{background:var(--nmd-cream);border:1px solid var(--nmd-line);border-radius:14px;padding:12px;box-shadow:0 18px 38px rgba(0,27,61,.08)}
   .nmd-compare{position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;background:#f3efe7;touch-action:none;user-select:none;-webkit-user-select:none}
-  .nmd-compare{background-image:url('../examples/hero-before-strawberry.jpg?v=hero-proof-4');background-size:cover;background-position:center;background-repeat:no-repeat}
+  .nmd-compare{background-image:url('../examples/hero-before-strawberry-1536.webp?v=hq-1536-1');background-size:cover;background-position:center;background-repeat:no-repeat}
   .nmd-compare img{position:absolute;inset:0;width:100%;height:100%;display:block}
   .nmd-compare>img:first-child{opacity:0}
-  .nmd-compare-after{clip-path:inset(0 0 0 50%);background-image:url('../examples/hero-after-blueberry.webp?v=hero-proof-3');background-size:cover;background-position:center;background-repeat:no-repeat;object-fit:none;object-position:-9999px -9999px;color:transparent;font-size:0}
+  .nmd-compare-after{clip-path:inset(0 0 0 50%);background-image:url('../examples/hero-after-blueberry-1536.webp?v=hq-1536-1');background-size:cover;background-position:center;background-repeat:no-repeat;object-fit:none;object-position:-9999px -9999px;color:transparent;font-size:0}
   .nmd-compare-tag{position:absolute;top:14px;z-index:5;padding:5px 9px;border-radius:4px;font-size:10px;font-weight:800;letter-spacing:.08em}
   .nmd-compare-tag.before{left:14px;background:rgba(0,27,61,.84);color:#fff}
   .nmd-compare-tag.after{right:14px;background:var(--nmd-gold);color:var(--nmd-navy)}
