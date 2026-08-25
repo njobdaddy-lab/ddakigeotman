@@ -207,9 +207,18 @@
 <section id="module-create" class="module">
   <div class="module-head"><button class="back" onclick="goBack()">← 뒤로</button><div><div class="module-title">이미지 프롬프트 만들기</div><div class="module-sub">짧게 적어도 괜찮아요. 선택한 조건으로 자동 보완해드려요.</div></div></div>
   <div class="card">
-    <h2>무엇을 만들고 싶나요?</h2>
-    <div class="desc">원하는 내용을 편하게 적어주세요. 전문적인 표현은 몰라도 괜찮아요.</div>
-    <textarea id="createCore" class="wide textarea" placeholder="예) SKT매장 외부홍보용 VMD 아이폰17 기기가격 20만원 공시지원금, 카드사용조건"></textarea>
+    <h2>원하는 걸 편하게 적어주세요.</h2>
+    <div class="desc">짧게, 반말로, 생각나는 대로 적어도 괜찮아요. 작업 설명과 실제 요청은 내말대로가 정리해드려요.</div>
+    <textarea id="createCore" class="wide textarea" placeholder="예) 갤럭시 S26 행사 이미지 만들고 싶어&#10;단골 1400명 기념이고 기계가격 1,000원 강조&#10;매장 앞에 붙일 거라 눈에 잘 띄고 고급스럽게"></textarea>
+    <div class="field create-example-field">
+      <div class="label">어떻게 적을지 막막하면 예시부터 눌러보세요.</div>
+      <div class="choice create-example-choices">
+        <button type="button" onclick="fillCreateExample('product')">제품 홍보 예시</button>
+        <button type="button" onclick="fillCreateExample('poster')">포스터 예시</button>
+        <button type="button" onclick="fillCreateExample('sns')">SNS 이미지 예시</button>
+      </div>
+      <div class="hint">예시는 입력칸에만 채워져요. 그대로 써도 되고 내 상황에 맞게 대충 고쳐도 괜찮아요.</div>
+    </div>
     <div class="field"><div class="label">어디에 쓸 건가요?</div><div class="choice" id="useChoices"><button class="active" data-v="SNS">SNS</button><button data-v="포스터">포스터</button><button data-v="프로필">프로필</button><button data-v="제품">제품</button><button data-v="앱 UI">앱 UI</button></div></div>
     <div class="field"><div class="label">비율 · 출력 규격</div><div class="choice" id="ratioChoices"><button class="active" data-v="세로 9:16">세로 9:16</button><button data-v="1:1">1:1</button><button data-v="가로 16:9">가로 16:9</button><button data-v="자동">자동</button><button data-v="__custom_ratio__">직접 입력</button></div><input id="customRatio" class="wide mini-input" placeholder="예) A1 / A1 가로 / 594×841mm / 1080×1920px / 4:5"></div>
     <div class="field"><div class="label">분위기</div><div class="choice" id="moodChoices"><button class="active" data-v="깔끔하고 세련된">깔끔</button><button data-v="감성적인">감성</button><button data-v="귀여운">귀여움</button><button data-v="고급스러운">고급</button><button data-v="자연스러운">자연스러움</button><button data-v="__custom_mood__">직접 입력</button></div><input id="customMood" class="wide mini-input" placeholder="예) 애플 광고처럼 미니멀하고 차가운 느낌"></div>
@@ -353,7 +362,7 @@
 </section>
 
 </div>
-<script src="./assets/js/app.js?v=split4"></script>
+<script src="./assets/js/app.js?v=split5"></script>
 <script src="./assets/js/photo-editor.js?v=split2"></script>
 </body>
 </html>

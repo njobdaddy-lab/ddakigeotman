@@ -19,6 +19,18 @@ setupSingleChoice('aiChoices',v=>{const tips={GPT:'✨ GPT용: 핵심 목적·�
 setupSingleChoice('photoAiChoices',v=>{const b=document.getElementById('photoOpenAiBtn');if(b)b.textContent=v+' 열기'});
 function buildAccuracy(core,accuracy){const specific=/(아이폰\s*\d+|iphone\s*\d+|갤럭시\s*[a-z]?\s*\d+|galaxy\s*[a-z]?\s*\d+|맥북|macbook|테슬라|bmw|benz|메르세데스|현대\s*\w+|기아\s*\w+)/i.test(core);if(accuracy==='similar')return '';if(accuracy==='exact'||specific)return `\n【실존 제품·모델 정확성】\n- 핵심 내용에 특정 실존 제품이나 모델명이 있다면 기억이나 추측에 의존하지 마세요.\n- 웹 검색이 가능한 경우 제조사 공식 제품 페이지나 공식 자료를 먼저 확인한 뒤 실제 외형을 기준으로 표현하세요.\n- 다른 세대·다른 모델·비슷한 제품으로 임의 대체하지 마세요.\n- 카메라 배열, 렌즈 위치, 프레임, 전면 형태, 버튼 등 모델을 식별하는 특징을 임의로 창작하지 마세요.\n- 공식 외형을 확인하기 어렵다면 다른 모델의 외형을 섞어서 그리지 마세요.\n`;return ''}
 function layoutGuide(core){const hasPrice=/가격|만원|원\b|할인|혜택|지원금|조건/i.test(core);if(!hasPrice)return '';return `\n【정보 배치 가이드】\n- 핵심 가격·혜택·조건이 있다면 서로 따로 노는 요소처럼 두지 말고 하나의 정보 묶음처럼 구성하세요.\n- 가장 중요한 가격 또는 핵심 메시지는 가장 강하게 강조하세요.\n- 공시지원금, 카드사용조건처럼 가격에 붙는 조건은 가격 아래 또는 가까운 보조 정보 영역에 정돈해 배치하세요.\n- 조건 문구는 가격보다 덜 강조하되 실제 홍보물에서 읽기 쉬운 크기와 대비를 확보하세요.\n- 관련 조건들은 크기·정렬·간격을 통일해 하나의 세트처럼 보이게 해주세요.\n`}
+function fillCreateExample(type){
+  const examples={
+    product:'갤럭시 S26 행사 이미지 만들고 싶어. 단골 1400명 돌파 기념이고 공시지원금, 제휴카드 사용조건으로 기계가격 1,000원을 가장 잘 보이게 하고 싶어. 매장 앞에 붙일 거라 고급스럽고 눈에 잘 띄게.',
+    poster:'카페 여름 신메뉴 포스터 만들고 싶어. 망고빙수 8,900원 강조하고 시원하고 깔끔한 느낌. 매장 유리창에 붙일 거라 멀리서도 가격이 잘 보였으면 좋겠어.',
+    sns:'인스타에 올릴 이벤트 이미지 만들고 싶어. 이번 주말만 20% 할인, 기간은 8월 29일부터 30일까지. 너무 광고 같지는 않고 밝고 세련되게.'
+  };
+  const box=document.getElementById('createCore');
+  if(!box||!examples[type])return;
+  box.value=examples[type];
+  box.focus();
+  box.setSelectionRange(box.value.length,box.value.length);
+}
 function makeCreatePrompt(){const core=document.getElementById('createCore').value.trim();if(!core){alert('만들고 싶은 내용을 적어주세요.');return}let ratio=val('ratioChoices');if(ratio==='__custom_ratio__')ratio=normalizeSize(document.getElementById('customRatio').value);let mood=val('moodChoices');if(mood==='__custom_mood__')mood=document.getElementById('customMood').value.trim();const use=val('useChoices'),text=val('textChoices'),output=val('outputChoices'),accuracy=val('accuracyChoices'),ai=val('aiChoices');let outputText=output==='design'?'- 실제 설치 장면이나 목업이 아닌, 바로 사용할 수 있는 최종 그래픽 디자인 자체':output==='mockup'?'- 완성 디자인이 실제 공간·기기·인쇄물 등에 적용된 사용 모습을 보여주는 목업':'- 핵심 내용과 용도를 보고 최종 디자인 자체와 실제 사용 목업 중 더 적절한 형태를 선택';let base=`${use} 용도의 이미지를 만들어 주세요.\n\n【핵심 내용】\n${core}\n\n【출력 형태】\n${outputText}\n\n【기본 조건】\n- 출력 규격: ${ratio||'자동'}\n- 분위기: ${mood||'요청 내용에 어울리게'}\n- ${text==='글자 없음'?'이미지 안에 글자를 넣지 말 것':text==='지정 문구만'?'사용자가 지정한 문구만 사용하고 임의 문구를 추가하지 말 것':'사용자가 요청하지 않은 글자, 숫자, 로고는 넣지 말 것'}\n`+buildAccuracy(core,accuracy)+`\n【구성 원칙】\n- 핵심 메시지와 주요 피사체가 첫눈에 들어오도록 정보 위계를 분명하게 구성하세요.\n- 제목 → 핵심 조건/혜택 → 주요 제품 또는 피사체 → 가장 중요한 가격/메시지 순으로 자연스러운 시선 흐름을 만드세요.\n- 충분한 여백을 두고 실제 사용 가능한 완성도를 우선하세요.\n- 특히 VMD·포스터·홍보물이라는 표현을 실제 매장 내부나 진열대 설치 장면으로 해석하지 마세요. 최종 광고 그래픽 자체를 요청한 경우 그 디자인 자체를 만들어 주세요.\n`+layoutGuide(core);
 if(ai==='Gemini')base+=`\n【Gemini에서 임의로 확장하지 말 것】\n- 요청하지 않은 매장 내부, 건물, 공간 배경\n- 직원, 고객, 모델 등 요청하지 않은 사람\n- 실물 POP 스탠드, 진열대, 테이블, 받침대, 설치 구조물\n- 요청하지 않은 여러 대의 제품이나 색상 변형 제품 나열\n- 사용자가 요청하지 않은 로고, 브랜드 마크, 아이콘\n- 사용자가 제공하지 않은 문구, 숫자, 할인 조건, 설명 문장\n- 제품을 다른 모델처럼 보이게 하는 임의 재디자인\n\n【한 장만 생성】\n- 최종 결과는 사용 가능한 완성 디자인 1안, 이미지 1장으로만 생성하세요.\n- 한 이미지 안에 2개·3개 이상의 시안을 나란히 보여주지 마세요.\n- 비교용 시안, 분할 화면, 콜라주, 디자인 보드 형태로 만들지 마세요.\n- 지정한 출력 규격 전체를 하나의 디자인이 사용하도록 하세요.\n`;
 else if(ai==='Google Flow')base+=`\n【Google Flow 작업 기준】\n- 하나의 최종 프레임으로 사용할 수 있도록 산출물 형태를 명확하게 유지하세요.\n- 핵심 피사체, 텍스트, 가격, 조건의 위치 관계를 임의로 확장하지 마세요.\n- 장면을 추가하기보다 요청한 그래픽 자체의 완성도를 높이세요.\n`;
