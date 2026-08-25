@@ -1,0 +1,23 @@
+name: Trigger preset cards
+on:
+  push:
+    branches: [preset-cards-v1]
+    paths:
+      - '.github/workflows/preset-cards-trigger.yml'
+permissions:
+  contents: write
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: preset-cards-v1
+      - name: Touch preset workflow
+        run: |
+          echo '# trigger' >> .github/workflows/preset-cards-v1.yml
+          git config user.name "njobdaddy"
+          git config user.email "actions@users.noreply.github.com"
+          git add .github/workflows/preset-cards-v1.yml
+          git commit -m "Trigger preset gallery workflow"
+          git push origin HEAD:preset-cards-v1
