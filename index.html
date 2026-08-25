@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>내말대로 | AI 요청 최적화 · 사진 복원 · 영상화</title>
-<link rel="stylesheet" href="./assets/css/site.css?v=split4">
+<link rel="stylesheet" href="./assets/css/site.css?v=split5">
 <link rel="stylesheet" href="./assets/css/photo-editor.css?v=split2">
 </head>
 <body>
@@ -226,6 +226,18 @@
     <div class="field"><div class="label">결과 이미지는 어떤 모습으로 만들까요?</div><div class="choice" id="outputChoices"><button class="active" data-v="design">디자인만</button><button data-v="mockup">실제 사용 모습</button><button data-v="auto">AI가 판단</button></div><div class="hint">포스터·VMD 자체가 필요하면 디자인만, 실제 적용 모습을 보고 싶다면 실제 사용 모습을 선택하세요.</div></div>
     <div class="field"><div class="label">정확한 실존 제품·모델이 들어가나요?</div><div class="choice" id="accuracyChoices"><button class="active" data-v="auto">자동 판단</button><button data-v="exact">네, 정확해야 해요</button><button data-v="similar">비슷해도 괜찮아요</button></div><div class="hint">아이폰·갤럭시·자동차·가전처럼 실제 모델 외형이 중요하면 공식 자료 확인 지시를 자동으로 넣어요.</div></div>
     <div class="field"><div class="label">어느 AI로 만들 건가요?</div><div class="choice" id="aiChoices"><button class="active" data-v="GPT">GPT</button><button data-v="Gemini">Gemini</button><button data-v="Google Flow">Google Flow</button><button data-v="Claude Code">Claude Code</button></div></div>
+    <div class="field preset-gallery-field">
+      <div class="label">요즘 많이 쓰는 변환</div>
+      <div class="hint">막막하면 하나 눌러보세요. 예시가 바로 채워져요.</div>
+      <div class="preset-filter" id="presetFilter">
+        <button type="button" class="active" data-preset-filter="all">전체</button>
+        <button type="button" data-preset-filter="style">화풍 변환</button>
+        <button type="button" data-preset-filter="fun">재미 변환</button>
+        <button type="button" data-preset-filter="practical">실전 수정</button>
+      </div>
+      <div class="preset-grid" id="presetGrid"></div>
+      <button type="button" class="preset-more" id="presetMoreBtn">예시 더 보기</button>
+    </div>
     <div id="aiTip" class="notice">GPT용: 핵심 목적·정확성·구성 조건을 분명하게 하되 필요 이상으로 장황하지 않게 만들어요.</div>
     <div class="actions" style="margin-top:13px"><button class="primary" onclick="makeCreatePrompt()">AI 맞춤 이미지 요청 만들기</button></div>
     <div id="createResult" class="result"><textarea id="createOutput" readonly></textarea><div class="result-actions"><button class="secondary" onclick="copyText('createOutput')">요청 복사</button><button id="openSelectedAiBtn" class="primary" onclick="openSelectedAI()">GPT 열기</button></div></div>

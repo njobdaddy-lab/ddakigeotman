@@ -19,6 +19,26 @@ setupSingleChoice('aiChoices',v=>{const tips={GPT:'✨ GPT용: 핵심 목적·�
 setupSingleChoice('photoAiChoices',v=>{const b=document.getElementById('photoOpenAiBtn');if(b)b.textContent=v+' 열기'});
 function buildAccuracy(core,accuracy){const specific=/(아이폰\s*\d+|iphone\s*\d+|갤럭시\s*[a-z]?\s*\d+|galaxy\s*[a-z]?\s*\d+|맥북|macbook|테슬라|bmw|benz|메르세데스|현대\s*\w+|기아\s*\w+)/i.test(core);if(accuracy==='similar')return '';if(accuracy==='exact'||specific)return `\n【실존 제품·모델 정확성】\n- 핵심 내용에 특정 실존 제품이나 모델명이 있다면 기억이나 추측에 의존하지 마세요.\n- 웹 검색이 가능한 경우 제조사 공식 제품 페이지나 공식 자료를 먼저 확인한 뒤 실제 외형을 기준으로 표현하세요.\n- 다른 세대·다른 모델·비슷한 제품으로 임의 대체하지 마세요.\n- 카메라 배열, 렌즈 위치, 프레임, 전면 형태, 버튼 등 모델을 식별하는 특징을 임의로 창작하지 마세요.\n- 공식 외형을 확인하기 어렵다면 다른 모델의 외형을 섞어서 그리지 마세요.\n`;return ''}
 function layoutGuide(core){const hasPrice=/가격|만원|원\b|할인|혜택|지원금|조건/i.test(core);if(!hasPrice)return '';return `\n【정보 배치 가이드】\n- 핵심 가격·혜택·조건이 있다면 서로 따로 노는 요소처럼 두지 말고 하나의 정보 묶음처럼 구성하세요.\n- 가장 중요한 가격 또는 핵심 메시지는 가장 강하게 강조하세요.\n- 공시지원금, 카드사용조건처럼 가격에 붙는 조건은 가격 아래 또는 가까운 보조 정보 영역에 정돈해 배치하세요.\n- 조건 문구는 가격보다 덜 강조하되 실제 홍보물에서 읽기 쉬운 크기와 대비를 확보하세요.\n- 관련 조건들은 크기·정렬·간격을 통일해 하나의 세트처럼 보이게 해주세요.\n`}
+const PRESET_PROMPT_CARDS=[
+{id:'watercolor',category:'style',categoryLabel:'화풍 변환',module:'create',title:'수채화풍',desc:'부드럽고 따뜻하게',prompt:'이 이미지의 구도와 주요 대상은 유지하고, 전체를 부드러운 수채화 일러스트 느낌으로 바꿔줘. 색감은 자연스럽고 따뜻하게 표현해줘.'},
+{id:'figure-box',category:'fun',categoryLabel:'재미 변환',module:'create',title:'피규어 박스',desc:'장난감 패키지 느낌',prompt:'이 인물을 장난감 피규어 패키지 상품처럼 보이게 만들어줘. 전체적으로 귀엽고 완성도 높은 상품 이미지처럼 표현해줘.'},
+{id:'movie-poster',category:'fun',categoryLabel:'재미 변환',module:'create',title:'영화 포스터',desc:'시네마틱하게',prompt:'이 장면을 영화 포스터 같은 분위기로 재구성해줘. 핵심 대상이 먼저 눈에 들어오게 하고 드라마틱하고 시네마틱하게 표현해줘.'},
+{id:'price-change',category:'practical',categoryLabel:'실전 수정',module:'photo',title:'가격만 변경',desc:'기존 디자인은 그대로',prompt:'기존 디자인은 그대로 유지하고 가격만 바꿔줘. 다른 문구, 레이아웃, 제품, 배경은 변경하지 말아줘.'},
+{id:'background-change',category:'practical',categoryLabel:'실전 수정',module:'photo',title:'배경만 변경',desc:'피사체는 그대로',prompt:'인물과 의상, 포즈는 그대로 유지하고 배경만 바꿔줘. 인물 외의 나머지 부분만 자연스럽게 변경해줘.'},
+{id:'topping-change',category:'practical',categoryLabel:'실전 수정',module:'photo',title:'이것만 바꾸기',desc:'대표 부분수정 예시',prompt:'케이크 본체, 접시, 배경, 구도, 조명은 그대로 유지하고 케이크 위 딸기 토핑만 블루베리로 바꿔줘.'},
+{id:'webtoon',category:'style',categoryLabel:'화풍 변환',module:'create',title:'웹툰풍',desc:'또렷한 만화 느낌',prompt:'인물과 배경의 구도는 유지하고 전체 이미지를 웹툰 스타일 일러스트처럼 바꿔줘. 윤곽선은 또렷하게, 색은 깔끔하게 표현해줘.'},
+{id:'pixelart',category:'style',categoryLabel:'화풍 변환',module:'create',title:'픽셀아트',desc:'레트로 게임 감성',prompt:'원본 이미지의 핵심 요소는 유지하고 전체를 픽셀아트 스타일로 바꿔줘. 레트로 게임 느낌이 나도록 단순화해줘.'},
+{id:'clay',category:'style',categoryLabel:'화풍 변환',module:'create',title:'클레이풍',desc:'둥글고 귀엽게',prompt:'사진 속 대상과 구도는 유지하고 전체를 부드러운 클레이 아트 느낌으로 바꿔줘. 점토처럼 둥글고 귀엽게 표현해줘.'},
+{id:'magazine-cover',category:'fun',categoryLabel:'재미 변환',module:'create',title:'잡지 표지',desc:'세련된 커버 느낌',prompt:'이 이미지를 세련된 매거진 표지 스타일로 만들어줘. 주요 피사체가 중심에 잘 보이도록 하고 고급스럽고 화보 같은 분위기로 표현해줘.'},
+{id:'sticker-set',category:'fun',categoryLabel:'재미 변환',module:'create',title:'스티커 세트',desc:'귀엽고 활용도 높게',prompt:'이 사진 속 대상을 귀여운 스티커 세트처럼 만들어줘. 각각 다른 표정이나 포즈 느낌이 나도록 정리하고 배경은 깔끔하게 처리해줘.'},
+{id:'text-date-change',category:'practical',categoryLabel:'실전 수정',module:'photo',title:'문구/날짜 변경',desc:'지정한 글자만 바꾸기',prompt:'기존 디자인의 전체 분위기와 레이아웃은 그대로 유지하고 내가 지정한 문구나 날짜만 바꿔줘. 다른 글자, 숫자, 배경, 제품은 변경하지 말아줘.'}
+];
+let presetExpanded=false,presetFilter='all';
+function showPresetToast(text){document.querySelector('.preset-toast')?.remove();const el=document.createElement('div');el.className='preset-toast';el.textContent=text;document.body.appendChild(el);setTimeout(()=>el.remove(),2200)}
+function applyPresetCard(id){const card=PRESET_PROMPT_CARDS.find(x=>x.id===id);if(!card)return;switchFreeTool(card.module);setTimeout(()=>{const box=document.getElementById(card.module==='create'?'createCore':'photoEditCore');if(!box)return;box.value=card.prompt;box.focus();box.setSelectionRange(box.value.length,box.value.length);showPresetToast(card.module==='create'?'예시가 입력됐어요. 그대로 쓰거나 조금만 고쳐보세요.':'예시가 입력됐어요. 원본을 올리고 바꿀 위치를 표시하면 더 정확해져요.')},60)}
+function renderPresetCards(){const grid=document.getElementById('presetGrid'),more=document.getElementById('presetMoreBtn');if(!grid||!more)return;const filtered=PRESET_PROMPT_CARDS.filter(x=>presetFilter==='all'||x.category===presetFilter),visible=presetExpanded?filtered:filtered.slice(0,6);grid.innerHTML='';visible.forEach(card=>{const btn=document.createElement('button');btn.type='button';btn.className='preset-card';btn.innerHTML=`<span class="preset-category">${card.categoryLabel}</span><strong>${card.title}</strong><small>${card.desc}</small>`;btn.addEventListener('click',()=>applyPresetCard(card.id));grid.appendChild(btn)});more.style.display=filtered.length>6?'block':'none';more.textContent=presetExpanded?'접기':'예시 더 보기'}
+function setupPresetGallery(){document.querySelectorAll('[data-preset-filter]').forEach(btn=>btn.addEventListener('click',()=>{presetFilter=btn.dataset.presetFilter||'all';presetExpanded=false;document.querySelectorAll('[data-preset-filter]').forEach(x=>x.classList.toggle('active',x===btn));renderPresetCards()}));document.getElementById('presetMoreBtn')?.addEventListener('click',()=>{presetExpanded=!presetExpanded;renderPresetCards()});renderPresetCards()}
+
 function fillCreateExample(type){
   const examples={
     product:'갤럭시 S26 행사 이미지 만들고 싶어. 단골 1400명 돌파 기념이고 공시지원금, 제휴카드 사용조건으로 기계가격 1,000원을 가장 잘 보이게 하고 싶어. 매장 앞에 붙일 거라 고급스럽고 눈에 잘 띄게.',
@@ -173,4 +193,5 @@ function setupStitchCompare(){
 }
 
 setupFreeToolSwitchers();
+setupPresetGallery();
 applyStitchHomeStage1();
