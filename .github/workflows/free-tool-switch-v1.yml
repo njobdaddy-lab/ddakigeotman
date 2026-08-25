@@ -1,0 +1,122 @@
+name: Free tool switch v1
+
+on:
+  push:
+    branches: [free-tool-switch-v1]
+    paths:
+      - '.github/workflows/free-tool-switch-v1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: free-tool-switch-v1
+      - name: Patch Hero CTA and free tool navigation
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          app = Path('assets/js/app.js')
+          js = app.read_text(encoding='utf-8')
+
+          old_route = "function openModule(name){if(MODULE_NAMES.has(name))pushScreen('module-'+name)}\n"
+          new_route = """function openModule(name){if(MODULE_NAMES.has(name))pushScreen('module-'+name)}
+function switchFreeTool(name){
+  if(!MODULE_NAMES.has(name))return;
+  const screen='module-'+name;
+  if(screen===currentScreen)return;
+  if(fallbackStack.length)fallbackStack[fallbackStack.length-1]=screen;else fallbackStack=[screen];
+  try{history.replaceState({nmdScreen:screen},'',location.href.split('#')[0])}catch(e){}
+  renderScreen(screen)
+}
+"""
+          if old_route not in js:
+              raise SystemExit('openModule route pattern not found')
+          js = js.replace(old_route, new_route, 1)
+
+          old_brand = "applyNaemaldaeroBrand();\n\nfunction applyStitchHomeStage1(){"
+          new_brand = """applyNaemaldaeroBrand();
+
+function setupFreeToolSwitchers(){
+  const tools=[['module-create','create'],['module-photo','photo']];
+  tools.forEach(([id,active])=>{
+    const module=document.getElementById(id);
+    if(!module||module.querySelector('.free-tool-switcher'))return;
+    const head=module.querySelector('.module-head');
+    if(!head)return;
+    const nav=document.createElement('div');
+    nav.className='free-tool-switcher';
+    nav.setAttribute('aria-label','무료 도구 전환');
+    [['create','새 이미지 요청문'],['photo','이미지 부분수정']].forEach(([name,label])=>{
+      const btn=document.createElement('button');
+      btn.type='button';
+      btn.textContent=label;
+      btn.classList.toggle('active',name===active);
+      btn.addEventListener('click',()=>switchFreeTool(name));
+      nav.appendChild(btn);
+    });
+    head.insertAdjacentElement('afterend',nav);
+  });
+}
+
+function applyStitchHomeStage1(){"""
+          if old_brand not in js:
+              raise SystemExit('Stitch insertion point not found')
+          js = js.replace(old_brand, new_brand, 1)
+
+          old_cta = '<div class="nmd-hero-actions"><button class="nmd-hero-primary" onclick="openModule(\'create\')">무료로 시작하기 <span>→</span></button></div>'
+          new_cta = '<div class="nmd-hero-actions"><button class="nmd-hero-primary" onclick="openModule(\'photo\')">이미지 부분수정 시작하기 <span>→</span></button></div>'
+          if old_cta not in js:
+              raise SystemExit('Hero CTA pattern not found')
+          js = js.replace(old_cta, new_cta, 1)
+
+          old_end = "\napplyStitchHomeStage1();\n"
+          new_end = "\nsetupFreeToolSwitchers();\napplyStitchHomeStage1();\n"
+          if old_end not in js:
+              raise SystemExit('app init pattern not found')
+          js = js.replace(old_end, new_end, 1)
+          app.write_text(js, encoding='utf-8')
+
+          css_path = Path('assets/css/site.css')
+          css = css_path.read_text(encoding='utf-8')
+          marker = '/* nmd-free-tool-switcher-v1 */'
+          if marker not in css:
+              css += '''\n\n/* nmd-free-tool-switcher-v1 */
+.free-tool-switcher{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;
+  margin:12px 0 16px;padding:5px;
+  background:#f3f0e9;border:1px solid var(--line);border-radius:14px;
+}
+.free-tool-switcher button{
+  min-height:44px;border:0;background:transparent;border-radius:10px;
+  color:#66707e;font-weight:900;font-size:12px;cursor:pointer;
+}
+.free-tool-switcher button.active{
+  background:var(--deep);color:#fff;box-shadow:0 5px 14px rgba(7,27,59,.12);
+}
+@media(max-width:680px){
+  .free-tool-switcher{margin:10px 0 14px;padding:4px;border-radius:12px}
+  .free-tool-switcher button{min-height:42px;font-size:11px}
+}
+'''
+              css_path.write_text(css, encoding='utf-8')
+
+          index = Path('index.html')
+          html = index.read_text(encoding='utf-8')
+          html = html.replace('./assets/css/site.css?v=split1','./assets/css/site.css?v=split4',1)
+          html = html.replace('./assets/js/app.js?v=split1','./assets/js/app.js?v=split4',1)
+          index.write_text(html, encoding='utf-8')
+          PY
+
+          rm .github/workflows/free-tool-switch-v1.yml
+          git config user.name "njobdaddy"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Link Hero example to partial edit and add free tool switcher"
+          git push origin HEAD:free-tool-switch-v1
