@@ -6,7 +6,7 @@
 <title>내말대로 | AI 요청 최적화 · 사진 복원 · 영상화</title>
 <link rel="stylesheet" href="./assets/css/site.css?v=split5">
 <link rel="stylesheet" href="./assets/css/photo-editor.css?v=split2">
-<link rel="stylesheet" href="./assets/css/home-prompt-teaser.css?v=5">
+<link rel="stylesheet" href="./assets/css/home-prompt-teaser.css?v=1">
 <style>
 .fun-prompts-note{margin:10px 2px 0;color:#8a8f98;font-size:10px;line-height:1.55;text-align:left}
 @media(max-width:640px){.fun-prompts-note{font-size:9.5px;margin-top:9px}}
@@ -117,7 +117,7 @@
       <button class="fun-prompt-card" data-kind="clay" onclick="applyPresetCard('clay')"><div class="fun-prompt-preview"><img src="./assets/examples/hero-before-v3.webp?v=hero-v3-1" alt="클레이풍 변환 예시"></div><strong>클레이풍</strong><small>둥글고 귀엽게</small></button>
       <button class="fun-prompt-card" data-kind="figure" onclick="applyPresetCard('figure-box')"><div class="fun-prompt-preview"><img src="./assets/examples/example-poster.webp?v=nmd9" alt="피규어 박스 변환 예시"></div><strong>피규어 박스</strong><small>장난감 패키지 느낌</small></button>
       <button class="fun-prompt-card" data-kind="movie" onclick="applyPresetCard('movie-poster')"><div class="fun-prompt-preview"><img src="./assets/examples/example-poster.webp?v=nmd9" alt="영화 포스터 변환 예시"></div><strong>영화 포스터</strong><small>시네마틱하게</small></button>
-      <button class="fun-prompt-card" data-kind="edit" onclick="applyPresetCard('topping-change')"><div class="fun-prompt-preview"><img src="./assets/examples/hero-after-v3.webp?v=hero-v3-1" alt="안경만 추가하는 부분수정 예시"></div><strong>이것만 바꾸기</strong><small>필요한 부분만 변경</small></button>
+      <button class="fun-prompt-card" data-kind="edit" onclick="applyPresetCard('topping-change')"><div class="fun-prompt-preview"><img src="./assets/examples/hero-after-v3.webp?v=hero-v3-1" alt="부분수정 변환 예시"></div><strong>이것만 바꾸기</strong><small>필요한 부분만 변경</small></button>
     </div>
     <button class="fun-prompts-foot" type="button" onclick="openPresetGalleryHome()">전체 프롬프트 보기 →</button>
     <p class="fun-prompts-note">※ 위 이미지는 기능 이해를 돕기 위한 AI 생성 예시입니다. 실제 결과는 입력 이미지, 요청 내용, 사용한 AI에 따라 달라질 수 있습니다. 일부 예시 이미지는 AI로 생성한 가상 인물을 사용했습니다.</p>
@@ -159,50 +159,203 @@
       <button class="more-card" onclick="openModule('protect')"><div class="more-preview date">08.23 → 08.30</div><strong>날짜만 변경</strong><small>문구·레이아웃 유지</small></button>
       <button class="more-card" onclick="openModule('protect')"><div class="more-preview qr"></div><strong>QR 유지</strong><small>인식 요소 재해석 금지</small></button>
       <button class="more-card" onclick="openModule('protect')"><div class="more-preview remove"></div><strong>사람 제거</strong><small>배경 전체 재생성 금지</small></button>
-      <button class="more-card" onclick="openModule('protect')"><div class="more-preview bg"></div><strong>배경 변경</strong><small>피사체는 유지</small></button>
+      <button class="more-card" onclick="openModule('protect')"><div class="more-preview bg"></div><strong>배경 변경</strong><small>피사체는 그대로</small></button>
+      <button class="more-card" onclick="openModule('create')"><div class="more-preview copy">SALE → OPEN</div><strong>문구 수정</strong><small>지정 문구만 변경</small></button>
     </div>
   </section>
 
   <section class="workshop">
-    <div><span class="section-label">AI WORKSHOP</span><h2>원하는 작업을 직접 골라서 만들어요.</h2><p>새 이미지부터 부분수정, 유사한 느낌, 복구, 영상용 요청까지 한 곳에서.</p></div>
-    <button onclick="openPage('studio')">작업실 열기 →</button>
+    <div class="workshop-head">
+      <div><span class="section-label">RESULT WORKSHOP</span><h2>결과물까지 필요하다면 맡겨주세요.</h2><p>사진 복원 · 고화질화 · 사진 영상화</p></div>
+      <button onclick="openPage('studio')">작업실 보기 →</button>
+    </div>
+    <div class="workshop-grid">
+      <div class="work-thumb"><img src="./assets/examples/example-restore.webp?v=nmd9" alt="사진 복원 결과 예시"><span>사진 복원</span></div>
+      <div class="work-thumb"><img src="./assets/examples/example-restore.webp?v=nmd9" alt="사진 고화질화 결과 예시"><span>고화질화</span></div>
+      <div class="work-thumb"><img src="./assets/examples/example-video.webp?v=nmd9" alt="사진 영상화 결과 예시"><span>사진 영상화</span></div>
+    </div>
   </section>
 
   <section class="final-cta">
-    <span class="section-label">START FREE</span>
-    <h2>하고 싶은 말만 적어보세요.</h2>
-    <p>AI가 알아듣는 요청으로 정리해드릴게요.</p>
-    <button onclick="openModule('create')">무료 요청문 만들기 →</button>
+    <div><h2>원하는 것만 편하게 말하세요.</h2><p>나머지는 내말대로가 정리할게요.</p></div>
+    <button onclick="openModule('create')">무료로 시작하기 →</button>
   </section>
+
+  <footer class="site-footer">
+    <div class="foot-brand"><strong>내말대로</strong><small>AI가 멋대로 말고, 내말대로.</small></div>
+    <div class="foot-col"><b>서비스</b><button onclick="openModule('create')">무료 요청문</button><button onclick="openModule('photo')">이미지 부분수정</button><button onclick="openPage('restore')">사진 복원</button><button onclick="openPage('animate')">영상화</button></div>
+    <div class="foot-col"><b>안내</b><button onclick="goHome()">서비스 소개</button><button onclick="openPage('tools')">이용 안내</button><button onclick="openPage('studio')">문의하기</button><button type="button">개인정보처리방침</button></div>
+    <div class="copyright">© 2026 내말대로</div>
+  </footer>
 </main>
 
-<section id="page-restore" class="page-screen"><div class="page-head"><button class="back" onclick="goBack()">← 뒤로</button><div><span class="section-label">RESTORE</span><h1>사진 복원</h1><p>얼굴과 분위기는 유지하고 손상과 흐릿함만 자연스럽게 복원합니다.</p></div></div><div class="card"><h2>현재 준비 중입니다.</h2><div class="desc">복원 원칙·주문 흐름·결과 전달 방식을 정리하고 있어요.</div></div></section>
-<section id="page-animate" class="page-screen"><div class="page-head"><button class="back" onclick="goBack()">← 뒤로</button><div><span class="section-label">ANIMATE</span><h1>사진 영상화</h1><p>복원한 사진에 과하지 않은 움직임을 더해 짧은 영상으로 만듭니다.</p></div></div><div class="card"><h2>현재 준비 중입니다.</h2><div class="desc">영상화 원칙·길이·결과 전달 방식을 정리하고 있어요.</div></div></section>
-<section id="page-studio" class="page-screen"><div class="page-head"><button class="back" onclick="goBack()">← 뒤로</button><div><span class="section-label">AI WORKSHOP</span><h1>AI 작업실</h1><p>원하는 작업을 선택해 바로 요청문을 만들 수 있어요.</p></div></div><div class="studio-grid"><button onclick="openModule('create')"><strong>새 이미지 요청문</strong><small>이미지 생성·광고·포스터</small></button><button onclick="openModule('photo')"><strong>이미지 부분수정</strong><small>원본을 올리고 위치 표시</small></button><button onclick="openModule('similar')"><strong>이 이미지 느낌으로</strong><small>톤·구도·화풍 참고</small></button><button onclick="openModule('recover')"><strong>AI 이미지가 이상해요</strong><small>원본 기준으로 다시 복구</small></button><button onclick="openModule('video')"><strong>사진 → 영상 프롬프트</strong><small>움직임만 안전하게 추가</small></button><button onclick="openModule('protect')"><strong>원본 안 바뀌게 요청</strong><small>얼굴·글자·제품 보호</small></button></div></section>
+<section id="page-tools" class="page-screen">
+  <div class="page-back"><button onclick="goBack()">← 뒤로</button></div>
+  <div class="page-hero"><div class="section-kicker">FREE AI TOOLS</div><h1>무료 AI 도구</h1><p>AI에 직접 넣을 요청을 쉽게 만드는 도구들이에요.</p></div>
+  <div class="home-grid">
+    <button class="home-card" onclick="openModule('create')"><div class="icon">✦</div><strong>이미지 프롬프트 만들기</strong><span>짧게 적어도 사용할 AI에 맞춰 요청을 완성해요.</span></button>
+    <button class="home-card" onclick="openModule('photo')"><div class="icon">▧</div><strong>사진에서 이것만 수정</strong><span>바꿀 곳을 표시하고 나머지는 그대로 유지하도록 요청해요.</span></button>
+    <button class="home-card" onclick="openModule('similar')"><div class="icon">◈</div><strong>이 이미지 느낌으로</strong><span>참고 이미지의 분위기를 새 이미지에 활용해요.</span></button>
+    <button class="home-card" onclick="openModule('recover')"><div class="icon">↺</div><strong>AI 이미지가 이상해요</strong><span>처음 원본에서 다시 시도하는 복구 요청을 만들어요.</span></button>
+    <button class="home-card" onclick="openModule('video')"><div class="icon">▶</div><strong>사진 → 영상 프롬프트</strong><span>움직임과 고정할 부분을 나눠 정리해요.</span></button>
+    <button class="home-card" onclick="openModule('protect')"><div class="icon">▣</div><strong>원본 안 바뀌게 요청</strong><span>바꾸면 안 되는 요소를 빠르게 추가해요.</span></button>
+  </div>
+</section>
+
+<section id="page-studio" class="page-screen">
+  <div class="page-back"><button onclick="goBack()">← 뒤로</button></div>
+  <div class="page-hero"><div class="section-kicker">AI STUDIO</div><h1>AI 작업실</h1><p>프롬프트가 아니라 실제 결과가 필요할 때 이용하는 유료 서비스 영역이에요.</p></div>
+  <div class="studio-grid">
+    <div class="studio-card" onclick="openPage('restore')"><div class="studio-icon">▧</div><h3>오래된 사진 복원</h3><p>흐릿함·스크래치·색바램을 복원하고 고화질 결과를 받는 작업.</p><span class="price-tag">유료 서비스</span><span class="coming">준비 중</span></div>
+    <div class="studio-card" onclick="openPage('upscale')"><div class="studio-icon">⌕</div><h3>사진 고화질화</h3><p>작거나 흐린 사진을 업스케일하고 디테일을 개선하는 작업.</p><span class="price-tag">유료 서비스</span><span class="coming">준비 중</span></div>
+    <div class="studio-card" onclick="openPage('animate')"><div class="studio-icon">▶</div><h3>복원 사진 영상화</h3><p>복원된 인물 사진을 자연스럽게 움직이는 짧은 영상으로 만드는 작업.</p><span class="price-tag">유료 서비스</span><span class="coming">준비 중</span></div>
+  </div>
+</section>
+
+<section id="page-restore" class="page-screen detail-shell">
+  <div class="page-back"><button onclick="goBack()">← AI 작업실</button></div>
+  <div class="detail-callout"><h2>오래된 사진 복원</h2><p>사진을 업로드하면 복원 미리보기를 만들고, 전후 비교 후 고화질 결과를 받는 유료 서비스로 연결할 예정이에요.</p></div>
+  <div class="card"><h2>예정 흐름</h2><div class="desc">사진 업로드 → 복원 미리보기 → 전/후 비교 → 결제 → 고화질 결과 받기</div><button class="primary" style="width:100%" disabled>준비 중</button></div>
+</section>
+
+<section id="page-upscale" class="page-screen detail-shell">
+  <div class="page-back"><button onclick="goBack()">← AI 작업실</button></div>
+  <div class="detail-callout"><h2>사진 고화질화</h2><p>작거나 흐린 사진을 선명하게 개선하고 더 큰 해상도로 받을 수 있는 서비스로 준비할 예정이에요.</p></div>
+  <div class="card"><h2>예정 흐름</h2><div class="desc">사진 업로드 → 품질 분석 → 고화질 미리보기 → 결제 → 결과 받기</div><button class="primary" style="width:100%" disabled>준비 중</button></div>
+</section>
+
+<section id="page-animate" class="page-screen detail-shell">
+  <div class="page-back"><button onclick="goBack()">← AI 작업실</button></div>
+  <div class="detail-callout"><h2>복원 사진 영상화</h2><p>복원된 인물 사진을 짧고 자연스럽게 움직이는 영상으로 만드는 유료 서비스로 준비할 예정이에요.</p></div>
+  <div class="card"><h2>예정 흐름</h2><div class="desc">복원 사진 선택 → 움직임 선택 → 미리보기 → 결제 → 전체 영상 받기</div><button class="primary" style="width:100%" disabled>준비 중</button></div>
+</section>
 
 <section id="module-create" class="module">
-  <div class="module-head"><button class="back" onclick="goBack()">← 뒤로</button><div><div class="module-title">이미지 요청문 만들기</div><div class="module-sub">하고 싶은 말을 편하게 적으면, AI가 이해하기 좋은 요청으로 정리해요.</div></div></div>
-  <div class="card"><h2>무엇을 만들고 싶나요?</h2><div class="desc">원하는 내용을 편하게 적어주세요. 전문적인 표현은 몰라도 괜찮아요.</div><textarea id="createCore" class="wide textarea" placeholder="예) 매장 외부에 붙일 갤럭시 S26 행사 포스터를 만들고 싶어요. 단골 1,400명 돌파 기념이고, 기기가격 1,000원과 공시지원금·제휴카드 조건을 보여주고 싶어요."></textarea><div class="field"><div class="label">어디에 쓸 건가요?</div><div class="choice" id="useChoices"><button data-v="SNS">SNS</button><button data-v="포스터">포스터</button><button data-v="프로필">프로필</button><button class="active" data-v="제품">제품</button><button data-v="앱 UI">앱 UI</button></div></div><div class="field"><div class="label">비율 · 출력 규격</div><div class="choice" id="ratioChoices"><button class="active" data-v="세로 9:16">세로 9:16</button><button data-v="1:1">1:1</button><button data-v="가로 16:9">가로 16:9</button><button data-v="자동">자동</button><button data-v="__custom_ratio__">직접 입력</button></div><input id="customRatio" class="choice-extra" placeholder="예) A1 세로, 1080×1350, 4:5"></div><div class="field"><div class="label">분위기</div><div class="choice" id="moodChoices"><button data-v="깔끔">깔끔</button><button data-v="감성">감성</button><button data-v="귀여움">귀여움</button><button data-v="고급">고급</button><button data-v="자연스러움">자연스러움</button><button class="active" data-v="__custom_mood__">직접 입력</button></div><input id="customMood" class="choice-extra show" placeholder="원하는 분위기를 직접 입력해 주세요"></div><div class="field"><div class="label">이미지 안의 글자</div><div class="choice" id="textChoices"><button class="active" data-v="사용자가 요청한 문구만 사용하고, 작업 설명·용도 설명·지시 문장은 이미지 안의 글자로 넣지 말 것">요청한 문구만</button><button data-v="글자 없음">글자 없음</button><button data-v="지정 문구만">지정 문구만</button></div></div><div class="field"><div class="label">결과 형태</div><div class="choice" id="outputChoices"><button class="active" data-v="실제 설치 장면이나 목업이 아닌, 바로 사용할 수 있는 최종 그래픽 디자인 자체">최종 디자인</button><button data-v="실제 사용 장면이 포함된 목업 이미지">목업</button></div></div><div class="field"><div class="label">실존 제품 정확성</div><div class="choice" id="accuracyChoices"><button class="active" data-v="exact">정확하게</button><button data-v="similar">비슷해도 됨</button></div></div><div class="field preset-gallery-field"><div class="label">요즘 많이 쓰는 변환</div><div class="hint">막막하면 하나 눌러보세요. 예시가 바로 채워져요.</div><div class="preset-filter"><button class="active" data-preset-filter="all">전체</button><button data-preset-filter="style">화풍 변환</button><button data-preset-filter="fun">재미 변환</button><button data-preset-filter="practical">실전 수정</button></div><div id="presetGrid" class="preset-grid"></div><button id="presetMoreBtn" type="button" class="preset-more">예시 더 보기</button></div><div class="field"><div class="label">사용할 AI</div><div class="choice" id="aiChoices"><button class="active" data-v="GPT">GPT</button><button data-v="Gemini">Gemini</button><button data-v="Google Flow">Google Flow</button><button data-v="Claude Code">Claude Code</button></div></div><div id="aiTip" class="tip">✨ GPT용: 핵심 목적·정확성·구성 조건을 분명하게 하되 필요 이상으로 장황하지 않게 만들어요.</div><div class="actions"><button class="primary" onclick="makeCreatePrompt()">요청 만들기</button></div><div id="createResult" class="result"><textarea id="createOutput" readonly></textarea><div class="result-actions"><button class="secondary" onclick="copyText('createOutput')">복사</button><button class="primary" onclick="openSelectedAI('create')" id="openSelectedAiBtn">GPT 열기</button></div></div></div>
-</section>
-
-<section id="module-photo" class="module photo-module">
-  <div class="module-head"><button class="back" onclick="goBack()">← 뒤로</button><div><div class="module-title">사진에서 이것만 수정</div><div class="module-sub">원본은 그대로 두고, 수정 위치는 전체화면에서 편하게 표시해요.</div></div></div>
-  <div class="step-nav" id="photoStepNav"><button class="active" data-step="1">1 원본 업로드</button><button data-step="2">2 수정 위치 표시</button><button data-step="3">3 수정 내용 입력</button><button data-step="4">4 요청문 생성</button></div>
-  <div class="card photo-step-card"><h2>1. 원본 이미지를 올려주세요</h2><div class="desc">원본 파일은 수정하거나 압축하지 않습니다. 편집 화면에서는 보기 좋게 맞춰 보여주고, 가이드 이미지는 원본 픽셀 크기로 따로 만듭니다.</div><div class="photo-pick-row"><button class="primary" onclick="document.getElementById('photoInput').click()">사진 선택</button><span id="photoFileName">선택된 사진 없음</span><input id="photoInput" type="file" accept="image/*" hidden></div><div class="photo-preview" id="photoPreview"><div>사진을 선택한 뒤<br><button class="ghost-inline" id="photoOpenEditor" type="button" disabled>수정 위치 표시하기</button><br>를 눌러 전체화면에서 표시할 수 있어요.</div></div></div>
-  <div class="card photo-step-card"><h2>2. 표시한 곳에서 무엇을 바꿀까요?</h2><div class="desc">각 번호에 원하는 수정만 적어주세요. 같은 번호 안에 여러 번 표시해도 하나의 수정 대상으로 묶고, 표시 안에 함께 들어온 다른 요소는 요청하지 않았다면 유지합니다.</div><div id="photoRegionRequests" class="photo-region-list"></div><div id="photoNoRegion" class="photo-empty-note">아직 표시된 영역이 없습니다. 위에서 <b>수정 위치 표시하기</b>를 눌러 영역을 표시해 주세요.</div></div>
-  <div class="card photo-step-card"><h2>3. 공통 유지 조건</h2><div class="desc">표시하지 않은 곳도 원본 그대로 유지되도록 요청에 함께 넣어요.</div><div class="choice multi" id="photoKeep"><button data-v="얼굴">얼굴</button><button data-v="글자와 숫자">글자/숫자</button><button data-v="로고와 QR">로고/QR</button><button data-v="제품 외형">제품</button><button data-v="배경과 구도">배경/구도</button><button data-v="색감과 조명">색감/조명</button></div></div>
-  <div class="card photo-step-card"><h2>4. 사용할 AI</h2><div class="choice" id="photoAiChoices"><button class="active" data-v="GPT">GPT</button><button data-v="Gemini">Gemini</button><button data-v="Google Flow">Google Flow</button><button data-v="Claude Code">Claude Code</button></div><div class="actions"><button class="primary" onclick="makePhotoPrompt()">부분수정 요청 만들기</button></div><div id="photoResult" class="result"><textarea id="photoOutput" readonly></textarea><div class="result-actions"><button class="secondary" onclick="copyText('photoOutput')">복사</button><button class="primary" id="photoOpenAiBtn" onclick="openSelectedAI('photo')">GPT 열기</button></div></div></div>
-</section>
-
-<div class="photo-editor" id="photoEditor" aria-hidden="true">
-  <div class="photo-editor-bar">
-    <button onclick="closePhotoEditor()">← 닫기</button>
-    <div><strong>수정 위치 표시</strong><small>빨간 표시와 번호는 위치 안내용입니다.</small></div>
-    <button class="danger-link" onclick="clearPhotoMarks()">전체삭제</button>
+  <div class="module-head"><button class="back" onclick="goBack()">← 뒤로</button><div><div class="module-title">이미지 프롬프트 만들기</div><div class="module-sub">짧게 적어도 괜찮아요. 선택한 조건으로 자동 보완해드려요.</div></div></div>
+  <div class="card">
+    <h2>원하는 걸 편하게 적어주세요.</h2>
+    <div class="desc">짧게, 반말로, 생각나는 대로 적어도 괜찮아요. 작업 설명과 실제 요청은 내말대로가 정리해드려요.</div>
+    <textarea id="createCore" class="wide textarea" placeholder="예) 갤럭시 S26 행사 이미지 만들고 싶어&#10;단골 1400명 기념이고 기계가격 1,000원 강조&#10;매장 앞에 붙일 거라 눈에 잘 띄고 고급스럽게"></textarea>
+    <div class="field create-example-field">
+      <div class="label">어떻게 적을지 막막하면 예시부터 눌러보세요.</div>
+      <div class="choice create-example-choices">
+        <button type="button" onclick="fillCreateExample('product')">제품 홍보 예시</button>
+        <button type="button" onclick="fillCreateExample('poster')">포스터 예시</button>
+        <button type="button" onclick="fillCreateExample('sns')">SNS 이미지 예시</button>
+      </div>
+      <div class="hint">예시는 입력칸에만 채워져요. 그대로 써도 되고 내 상황에 맞게 대충 고쳐도 괜찮아요.</div>
+    </div>
+    <div class="field"><div class="label">어디에 쓸 건가요?</div><div class="choice" id="useChoices"><button class="active" data-v="SNS">SNS</button><button data-v="포스터">포스터</button><button data-v="프로필">프로필</button><button data-v="제품">제품</button><button data-v="앱 UI">앱 UI</button></div></div>
+    <div class="field"><div class="label">비율 · 출력 규격</div><div class="choice" id="ratioChoices"><button class="active" data-v="세로 9:16">세로 9:16</button><button data-v="1:1">1:1</button><button data-v="가로 16:9">가로 16:9</button><button data-v="자동">자동</button><button data-v="__custom_ratio__">직접 입력</button></div><input id="customRatio" class="wide mini-input" placeholder="예) A1 / A1 가로 / 594×841mm / 1080×1920px / 4:5"></div>
+    <div class="field"><div class="label">분위기</div><div class="choice" id="moodChoices"><button class="active" data-v="깔끔하고 세련된">깔끔</button><button data-v="감성적인">감성</button><button data-v="귀여운">귀여움</button><button data-v="고급스러운">고급</button><button data-v="자연스러운">자연스러움</button><button data-v="__custom_mood__">직접 입력</button></div><input id="customMood" class="wide mini-input" placeholder="예) 애플 광고처럼 미니멀하고 차가운 느낌"></div>
+    <div class="field"><div class="label">이미지 안 글자는?</div><div class="choice" id="textChoices"><button class="active" data-v="임의 글자 금지">임의 글자 금지</button><button data-v="지정 문구만">지정 문구만</button><button data-v="글자 없음">글자 없음</button></div></div>
+    <div class="field"><div class="label">결과 이미지는 어떤 모습으로 만들까요?</div><div class="choice" id="outputChoices"><button class="active" data-v="design">디자인만</button><button data-v="mockup">실제 사용 모습</button><button data-v="auto">AI가 판단</button></div><div class="hint">포스터·VMD 자체가 필요하면 디자인만, 실제 적용 모습을 보고 싶다면 실제 사용 모습을 선택하세요.</div></div>
+    <div class="field"><div class="label">정확한 실존 제품·모델이 들어가나요?</div><div class="choice" id="accuracyChoices"><button class="active" data-v="auto">자동 판단</button><button data-v="exact">네, 정확해야 해요</button><button data-v="similar">비슷해도 괜찮아요</button></div><div class="hint">아이폰·갤럭시·자동차·가전처럼 실제 모델 외형이 중요하면 공식 자료 확인 지시를 자동으로 넣어요.</div></div>
+    <div class="field"><div class="label">어느 AI로 만들 건가요?</div><div class="choice" id="aiChoices"><button class="active" data-v="GPT">GPT</button><button data-v="Gemini">Gemini</button><button data-v="Google Flow">Google Flow</button><button data-v="Claude Code">Claude Code</button></div></div>
+    <div class="field preset-gallery-field">
+      <div class="label">요즘 많이 쓰는 변환</div>
+      <div class="hint">막막하면 하나 눌러보세요. 예시가 바로 채워져요.</div>
+      <div class="preset-filter" id="presetFilter">
+        <button type="button" class="active" data-preset-filter="all">전체</button>
+        <button type="button" data-preset-filter="style">화풍 변환</button>
+        <button type="button" data-preset-filter="fun">재미 변환</button>
+        <button type="button" data-preset-filter="practical">실전 수정</button>
+      </div>
+      <div class="preset-grid" id="presetGrid"></div>
+      <button type="button" class="preset-more" id="presetMoreBtn">예시 더 보기</button>
+    </div>
+    <div id="aiTip" class="notice">GPT용: 핵심 목적·정확성·구성 조건을 분명하게 하되 필요 이상으로 장황하지 않게 만들어요.</div>
+    <div class="actions" style="margin-top:13px"><button class="primary" onclick="makeCreatePrompt()">AI 맞춤 이미지 요청 만들기</button></div>
+    <div id="createResult" class="result"><textarea id="createOutput" readonly></textarea><div class="result-actions"><button class="secondary" onclick="copyText('createOutput')">요청 복사</button><button id="openSelectedAiBtn" class="primary" onclick="openSelectedAI()">GPT 열기</button></div></div>
   </div>
-  <div class="photo-editor-stage-wrap" id="photoEditorStageWrap">
+</section>
+
+<section id="module-photo" class="module">
+  <div class="module-head"><button class="back" onclick="goBack()">← 뒤로</button><div><div class="module-title">사진에서 이것만 수정</div><div class="module-sub">원본은 그대로 두고, 수정 위치는 전체화면에서 편하게 표시해요.</div></div></div>
+  <div class="photo-tool">
+    <div class="photo-stepbar"><span>1 원본 업로드</span><span>2 수정 위치 표시</span><span>3 수정 내용 입력</span><span>4 요청문 생성</span></div>
+
+    <div class="photo-card">
+      <h2>1. 원본 이미지를 올려주세요</h2>
+      <p>원본 파일은 수정하거나 압축하지 않습니다. 편집 화면에서는 보기 좋게 맞춰 보여주고, 가이드 이미지는 원본 픽셀 크기로 따로 만듭니다.</p>
+      <div class="photo-upload">
+        <label for="photoInput">사진 선택</label>
+        <input id="photoInput" type="file" accept="image/*" onchange="loadPhotoFile(event)">
+        <span class="photo-file-name" id="photoFileName">선택된 사진 없음</span>
+      </div>
+      <div class="photo-empty" id="photoEmpty">사진을 선택한 뒤 <b>수정 위치 표시하기</b>를 눌러 전체화면에서 표시할 수 있어요.</div>
+      <div class="photo-summary" id="photoSummary">
+        <div class="photo-summary-preview">
+          <canvas id="photoPreviewCanvas"></canvas>
+          <span class="photo-summary-badge" id="photoGuideBadge">원본 준비 완료</span>
+        </div>
+        <div class="photo-summary-meta">
+          <span id="photoResolutionText"></span>
+          <div class="photo-summary-actions">
+            <button class="secondary" id="photoEditGuideBtn" onclick="openPhotoEditor()">수정 위치 표시하기</button>
+            <button class="secondary" id="photoDownloadGuideBtn" onclick="downloadPhotoGuide()" style="display:none">가이드 저장</button>
+          </div>
+        </div>
+        <div class="photo-guide-note" id="photoGuideNote">빨간 표시가 있는 가이드 이미지는 위치 안내용입니다. 실제 결과에는 빨간 표시가 들어가지 않도록 요청문에 자동으로 명시합니다.</div>
+      </div>
+    </div>
+
+    <div class="photo-card">
+      <h2>2. 실제로 무엇을 바꿀까요?</h2>
+      <p>예: “케이크 위 딸기만 블루베리로 바꿔줘.” 표시 안에 글자나 배경이 같이 들어가도, 요청하지 않았다면 유지하도록 정리합니다.</p>
+      <textarea id="photoEditCore" class="wide textarea" placeholder="예) 케이크 위 딸기 토핑만 블루베리로 바꿔줘"></textarea>
+
+      <div class="field">
+        <div class="label">특히 꼭 유지해야 할 것이 있나요?</div>
+        <div class="choice multi" id="photoKeep">
+          <button data-v="인물 얼굴과 인물 특징">얼굴/인물</button>
+          <button data-v="글자·숫자·날짜">글자/숫자</button>
+          <button data-v="로고와 QR 코드">로고/QR</button>
+          <button data-v="배경과 주변 장식">배경/장식</button>
+          <button data-v="구도·크롭·비율">구도/비율</button>
+          <button data-v="제품 외형과 모델 특징">제품 외형</button>
+          <button data-v="색감과 조명">색감/조명</button>
+        </div>
+        <div class="hint">선택하지 않아도 요청하지 않은 부분은 기본적으로 유지하도록 요청합니다.</div>
+      </div>
+
+      <div class="field">
+        <div class="label">어느 AI에서 사용할까요?</div>
+        <div class="choice" id="photoAiChoices">
+          <button class="active" data-v="GPT">GPT</button>
+          <button data-v="Gemini">Gemini</button>
+          <button data-v="Google Flow">Google Flow</button>
+          <button data-v="Claude Code">Claude Code</button>
+        </div>
+      </div>
+
+      <div class="photo-ai-note">
+        <b>AI에 넣을 순서</b><br>
+        ① 표시 없는 원본 이미지 → ② 빨간 표시가 있는 가이드 이미지 → ③ 아래에서 만든 요청문
+      </div>
+
+      <div class="actions" style="margin-top:13px">
+        <button class="primary" onclick="makePhotoPrompt()">부분수정 요청 만들기</button>
+      </div>
+
+      <div id="photoResult" class="result">
+        <textarea id="photoOutput" readonly></textarea>
+        <div class="result-actions">
+          <button class="secondary" onclick="copyText('photoOutput')">요청 복사</button>
+          <button class="secondary" onclick="downloadPhotoGuide()">가이드 이미지 저장</button>
+          <button id="photoOpenAiBtn" class="primary" onclick="openPhotoAI()">GPT 열기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="photo-full-editor" id="photoFullEditor" aria-hidden="true">
+    <div class="photo-editor-top">
+      <button onclick="cancelPhotoEditor()">취소</button>
+      <strong>수정 위치 표시</strong>
+      <button class="danger" onclick="clearPhotoMarks()">전체 지우기</button>
+    </div>
     <div class="photo-editor-stage" id="photoEditorStage">
-      <img id="photoEditorImage" alt="원본 이미지">
       <canvas id="photoEditorCanvas"></canvas>
       <div class="photo-editor-tip" id="photoEditorTip">한 손가락으로 자유표시 · 두 손가락으로 확대/이동</div>
       <div class="photo-zoom-chip" id="photoZoomChip">100%</div>
@@ -224,7 +377,6 @@
       <button class="photo-editor-confirm" id="photoEditorConfirm" onclick="confirmPhotoEditor()" disabled>이 위치로 확인</button>
     </div>
   </div>
-</div>
 </section>
 
 <section id="module-similar" class="module">
@@ -248,9 +400,8 @@
 </section>
 
 </div>
-<script src="./assets/js/prompt-presets-v2.js?v=1"></script>
-<script src="./assets/js/app.js?v=split6"></script>
+<script src="./assets/js/app.js?v=split5"></script>
 <script src="./assets/js/photo-editor.js?v=split2"></script>
-<script src="./assets/js/home-prompt-teaser.js?v=5"></script>
+<script src="./assets/js/home-prompt-teaser.js?v=1"></script>
 </body>
 </html>
