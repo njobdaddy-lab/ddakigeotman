@@ -80,3 +80,22 @@ button,input,textarea{font:inherit}button{color:inherit}.app{max-width:1080px;ma
   .final-cta{margin-top:32px;padding:22px 18px;gap:20px}
   .final-cta p{margin-top:9px}
 }
+
+
+/* nmd-free-tool-switcher-v1 */
+.free-tool-switcher{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;
+  margin:12px 0 16px;padding:5px;
+  background:#f3f0e9;border:1px solid var(--line);border-radius:14px;
+}
+.free-tool-switcher button{
+  min-height:44px;border:0;background:transparent;border-radius:10px;
+  color:#66707e;font-weight:900;font-size:12px;cursor:pointer;
+}
+.free-tool-switcher button.active{
+  background:var(--deep);color:#fff;box-shadow:0 5px 14px rgba(7,27,59,.12);
+}
+@media(max-width:680px){
+  .free-tool-switcher{margin:10px 0 14px;padding:4px;border-radius:12px}
+  .free-tool-switcher button{min-height:42px;font-size:11px}
+}
