@@ -14,14 +14,25 @@
 .fun-prompt-card strong{display:block;margin:9px 1px 0;font-size:13px}.fun-prompt-card small{display:block;margin:3px 1px 1px;color:#7c8591;font-size:9px;line-height:1.35}
 .fun-prompts-foot{display:none}
 
-/* Free image tools are independent screens, not one segmented mode. */
-#module-create>.free-tool-switcher,#module-photo>.free-tool-switcher{display:none!important}
+.free-tool-switcher-3{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.free-tool-switcher-3 button{min-width:0;padding-left:7px;padding-right:7px}
+#module-style .style-gallery-card{margin-bottom:20px}
+#module-style .preset-gallery-field{margin-top:0}
 
 @media(max-width:860px){.fun-prompts-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:680px){.fun-prompts{width:calc(100% - 32px);margin-left:auto;margin-right:auto;padding:18px 14px}.fun-prompts-head{display:block;margin-bottom:13px}.fun-prompts-head h2{font-size:21px}.fun-prompts-head p{font-size:10px;margin-top:6px}.fun-prompts-head>button{display:none}.fun-prompts-grid{grid-template-columns:repeat(2,1fr);gap:9px}.fun-prompt-preview{height:112px}.fun-prompt-card strong{font-size:12px}.fun-prompts-foot{display:block;width:100%;margin-top:12px;border:1px solid #d9d1c4;background:#fff;border-radius:12px;padding:11px 12px;font-weight:950;color:#071b3b}}
+@media(max-width:680px){
+  .fun-prompts{width:calc(100% - 32px);margin-left:auto;margin-right:auto;padding:18px 14px}
+  .fun-prompts-head{display:block;margin-bottom:13px}.fun-prompts-head h2{font-size:21px}.fun-prompts-head p{font-size:10px;margin-top:6px}.fun-prompts-head>button{display:none}
+  .fun-prompts-grid{grid-template-columns:repeat(2,1fr);gap:9px}
+  .fun-prompt-preview{height:auto;aspect-ratio:4/5}
+  .fun-prompt-card strong{font-size:12px}
+  .fun-prompts-foot{display:block;width:100%;margin-top:12px;border:1px solid #d9d1c4;background:#fff;border-radius:12px;padding:11px 12px;font-weight:950;color:#071b3b}
+  .free-tool-switcher-3{gap:4px!important;padding:4px!important}
+  .free-tool-switcher-3 button{font-size:10px!important;min-height:42px!important;padding:8px 4px!important;white-space:nowrap}
+}
 @media(max-width:767px){
-  #module-create.module.active,#module-photo.module.active{padding-top:72px!important}
-  #module-create>.module-head,#module-photo>.module-head{display:flex!important;margin:10px 16px 16px!important;padding:0!important}
-  #module-create>.module-head .module-title,#module-photo>.module-head .module-title{font-size:22px!important}
-  #module-create>.module-head .module-sub,#module-photo>.module-head .module-sub{font-size:10px!important;line-height:1.5!important}
+  #module-create.module.active,#module-photo.module.active,#module-style.module.active{padding-top:72px!important}
+  #module-create>.module-head,#module-photo>.module-head,#module-style>.module-head{display:flex!important;margin:10px 16px 16px!important;padding:0!important}
+  #module-create>.module-head .module-title,#module-photo>.module-head .module-title,#module-style>.module-head .module-title{font-size:22px!important}
+  #module-create>.module-head .module-sub,#module-photo>.module-head .module-sub,#module-style>.module-head .module-sub{font-size:10px!important;line-height:1.5!important}
 }
