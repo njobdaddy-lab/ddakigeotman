@@ -6,6 +6,7 @@
 <title>내말대로 | AI 요청 최적화 · 사진 복원 · 영상화</title>
 <link rel="stylesheet" href="./assets/css/site.css?v=split5">
 <link rel="stylesheet" href="./assets/css/photo-editor.css?v=split2">
+<link rel="stylesheet" href="./assets/css/home-prompt-teaser.css?v=1">
 </head>
 <body>
 <div class="app">
@@ -95,6 +96,26 @@
         <span class="service-link">영상화 보기 →</span>
       </button>
     </div>
+  </section>
+
+  <section class="fun-prompts" id="funPrompts">
+    <div class="fun-prompts-head">
+      <div>
+        <span class="section-label">FUN PROMPTS</span>
+        <h2>재미있는 변환, 바로 써보세요.</h2>
+        <p>마음에 드는 예시를 누르면 요청문이 자동으로 채워져요.</p>
+      </div>
+      <button type="button" onclick="openPresetGalleryHome()">전체 프롬프트 보기 →</button>
+    </div>
+    <div class="fun-prompts-grid">
+      <button class="fun-prompt-card" data-kind="watercolor" onclick="applyPresetCard('watercolor')"><div class="fun-prompt-preview"><img src="./assets/examples/hero-before-v3.webp?v=hero-v3-1" alt="수채화풍 변환 예시"></div><strong>수채화풍</strong><small>부드럽고 따뜻하게</small></button>
+      <button class="fun-prompt-card" data-kind="webtoon" onclick="applyPresetCard('webtoon')"><div class="fun-prompt-preview"><img src="./assets/examples/hero-before-v3.webp?v=hero-v3-1" alt="웹툰풍 변환 예시"></div><strong>웹툰풍</strong><small>또렷한 만화 느낌</small></button>
+      <button class="fun-prompt-card" data-kind="clay" onclick="applyPresetCard('clay')"><div class="fun-prompt-preview"><img src="./assets/examples/hero-before-v3.webp?v=hero-v3-1" alt="클레이풍 변환 예시"></div><strong>클레이풍</strong><small>둥글고 귀엽게</small></button>
+      <button class="fun-prompt-card" data-kind="figure" onclick="applyPresetCard('figure-box')"><div class="fun-prompt-preview"><img src="./assets/examples/example-poster.webp?v=nmd9" alt="피규어 박스 변환 예시"></div><strong>피규어 박스</strong><small>장난감 패키지 느낌</small></button>
+      <button class="fun-prompt-card" data-kind="movie" onclick="applyPresetCard('movie-poster')"><div class="fun-prompt-preview"><img src="./assets/examples/example-poster.webp?v=nmd9" alt="영화 포스터 변환 예시"></div><strong>영화 포스터</strong><small>시네마틱하게</small></button>
+      <button class="fun-prompt-card" data-kind="edit" onclick="applyPresetCard('topping-change')"><div class="fun-prompt-preview"><img src="./assets/examples/hero-after-v3.webp?v=hero-v3-1" alt="부분수정 변환 예시"></div><strong>이것만 바꾸기</strong><small>필요한 부분만 변경</small></button>
+    </div>
+    <button class="fun-prompts-foot" type="button" onclick="openPresetGalleryHome()">전체 프롬프트 보기 →</button>
   </section>
 
   <section class="why-v3">
@@ -376,5 +397,6 @@
 </div>
 <script src="./assets/js/app.js?v=split5"></script>
 <script src="./assets/js/photo-editor.js?v=split2"></script>
+<script src="./assets/js/home-prompt-teaser.js?v=1"></script>
 </body>
 </html>
