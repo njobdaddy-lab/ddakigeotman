@@ -1,17 +1,24 @@
 function openPresetGalleryHome(){
-  if(typeof switchFreeTool==='function')switchFreeTool('create');
-  else if(typeof openModule==='function')openModule('create');
-  setTimeout(()=>document.querySelector('.preset-gallery-field')?.scrollIntoView({behavior:'smooth',block:'start'}),120);
+  if(typeof currentScreen!=='undefined' && currentScreen==='home' && typeof openModule==='function')openModule('style');
+  else if(typeof switchFreeTool==='function')switchFreeTool('style');
+  else if(typeof openModule==='function')openModule('style');
+  setTimeout(()=>{
+    if(typeof presetFilter!=='undefined')presetFilter='all';
+    if(typeof presetExpanded!=='undefined')presetExpanded=false;
+    document.querySelectorAll('[data-preset-filter]').forEach(btn=>btn.classList.toggle('active',btn.dataset.presetFilter==='all'));
+    if(typeof renderPresetCards==='function')renderPresetCards();
+    document.querySelector('#module-style .preset-gallery-field')?.scrollIntoView({behavior:'smooth',block:'start'});
+  },120);
 }
 
 (function applyFunPromptImages(){
   const images={
-    watercolor:'./assets/examples/fun-watercolor.webp?v=fun1',
-    webtoon:'./assets/examples/fun-webtoon.webp?v=fun1',
-    clay:'./assets/examples/fun-clay.webp?v=fun1',
-    figure:'./assets/examples/fun-figure.webp?v=fun1',
-    movie:'./assets/examples/fun-movie.webp?v=fun1',
-    edit:'./assets/examples/fun-edit.webp?v=fun1'
+    watercolor:'./assets/examples/fun-watercolor.webp?v=fun2',
+    webtoon:'./assets/examples/fun-webtoon.webp?v=fun2',
+    clay:'./assets/examples/fun-clay.webp?v=fun2',
+    figure:'./assets/examples/fun-figure.webp?v=fun2',
+    movie:'./assets/examples/fun-movie.webp?v=fun2',
+    edit:'./assets/examples/fun-edit.webp?v=fun2'
   };
   const alt={
     watercolor:'AI 생성 인물 수채화풍 변환 예시',
