@@ -1,4 +1,4 @@
-document.write('<script src="./assets/js/app-core.js?v=tabs3"><\\/script>');
+document.write('<script src="./assets/js/app-core.js?v=tabs3"><\/script>');
 
 (function setupThreeFreeToolTabs(){
   try{ MODULE_NAMES.add('style'); }catch(e){}
