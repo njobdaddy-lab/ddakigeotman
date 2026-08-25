@@ -1,0 +1,38 @@
+name: Add AI example disclosure note
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-ai-example-note.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch disclosure note
+        shell: bash
+        run: |
+          python - <<'PY'
+          # -*- coding: utf-8 -*-
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old='''    <button class="fun-prompts-foot" type="button" onclick="openPresetGalleryHome()">\uc804\uccb4 \ud504\ub86c\ud504\ud2b8 \ubcf4\uae30 \u2192</button>\n  </section>'''
+          new='''    <button class="fun-prompts-foot" type="button" onclick="openPresetGalleryHome()">\uc804\uccb4 \ud504\ub86c\ud504\ud2b8 \ubcf4\uae30 \u2192</button>\n    <p class="fun-prompts-note">\u203b \uc704 \uc774\ubbf8\uc9c0\ub294 \uae30\ub2a5 \uc774\ud574\ub97c \ub3d5\uae30 \uc704\ud55c AI \uc0dd\uc131 \uc608\uc2dc\uc785\ub2c8\ub2e4. \uc2e4\uc81c \uacb0\uacfc\ub294 \uc785\ub825 \uc774\ubbf8\uc9c0, \uc694\uccad \ub0b4\uc6a9, \uc0ac\uc6a9\ud55c AI\uc5d0 \ub530\ub77c \ub2ec\ub77c\uc9c8 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uc77c\ubd80 \uc608\uc2dc \uc774\ubbf8\uc9c0\ub294 AI\ub85c \uc0dd\uc131\ud55c \uac00\uc0c1 \uc778\ubb3c\uc744 \uc0ac\uc6a9\ud588\uc2b5\ub2c8\ub2e4.</p>\n  </section>'''
+          if 'fun-prompts-note' not in s:
+              if old not in s:
+                  raise SystemExit('target block not found')
+              s=s.replace(old,new,1)
+          css='<style>\n.fun-prompts-note{margin:10px 2px 0;color:#8a8f98;font-size:10px;line-height:1.55;text-align:left}\n@media(max-width:640px){.fun-prompts-note{font-size:9.5px;margin-top:9px}}\n</style>\n'
+          if '.fun-prompts-note{' not in s:
+              s=s.replace('</head>',css+'</head>',1)
+          p.write_text(s,encoding='utf-8')
+          PY
+          rm .github/workflows/add-ai-example-note.yml
+          git config user.name "njobdaddy"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Add AI example disclosure note"
+          git push origin HEAD:main
