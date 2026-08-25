@@ -11,7 +11,6 @@
 .fun-prompt-card[data-kind="clay"] img{filter:saturate(1.18) contrast(.88) brightness(1.08) blur(.35px)}.fun-prompt-card[data-kind="clay"] .fun-prompt-preview:after{background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.25),transparent 58%)}
 .fun-prompt-card[data-kind="figure"] .fun-prompt-preview{padding:8px;background:linear-gradient(145deg,#e9ddc4,#f7f2e8)}.fun-prompt-card[data-kind="figure"] img{border-radius:7px;object-fit:cover;border:5px solid rgba(255,255,255,.86);box-shadow:0 5px 10px rgba(7,27,59,.12)}
 .fun-prompt-card[data-kind="movie"] img{filter:contrast(1.18) saturate(.78) brightness(.78)}.fun-prompt-card[data-kind="movie"] .fun-prompt-preview:after{background:linear-gradient(180deg,rgba(7,27,59,.05),rgba(7,27,59,.42))}
-.fun-prompt-card[data-kind="edit"] .fun-prompt-preview:before{content:"딸기 → 블루베리";position:absolute;left:7px;bottom:7px;z-index:2;background:rgba(7,27,59,.82);color:#fff;padding:5px 7px;border-radius:7px;font-size:8px;font-weight:900}
 .fun-prompt-card strong{display:block;margin:9px 1px 0;font-size:13px}.fun-prompt-card small{display:block;margin:3px 1px 1px;color:#7c8591;font-size:9px;line-height:1.35}
 .fun-prompts-foot{display:none}
 @media(max-width:860px){.fun-prompts-grid{grid-template-columns:repeat(3,1fr)}}
