@@ -37,6 +37,14 @@ function renderScreen(screen){allScreens().forEach(el=>{if(!el)return;el.classLi
 function pushScreen(screen){if(screen===currentScreen)return;fallbackStack.push(screen);try{history.pushState({nmdScreen:screen},'',location.href.split('#')[0])}catch(e){}renderScreen(screen)}
 function openPage(name){if(PAGE_NAMES.has(name))pushScreen('page-'+name)}
 function openModule(name){if(MODULE_NAMES.has(name))pushScreen('module-'+name)}
+function switchFreeTool(name){
+  if(!MODULE_NAMES.has(name))return;
+  const screen='module-'+name;
+  if(screen===currentScreen)return;
+  if(fallbackStack.length)fallbackStack[fallbackStack.length-1]=screen;else fallbackStack=[screen];
+  try{history.replaceState({nmdScreen:screen},'',location.href.split('#')[0])}catch(e){}
+  renderScreen(screen)
+}
 function goBack(){if(fallbackStack.length>1){const before=fallbackStack[fallbackStack.length-2];try{history.back();setTimeout(()=>{if(currentScreen!==before){fallbackStack.pop();renderScreen(before)}},120)}catch(e){fallbackStack.pop();renderScreen(before)}}else renderScreen('home')}
 function goHome(){if(currentScreen==='home'){window.scrollTo(0,0);return}fallbackStack=['home'];try{history.pushState({nmdScreen:'home'},'',location.href.split('#')[0])}catch(e){}renderScreen('home')}
 function scrollHome(id){if(currentScreen!=='home'){goHome();setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth'}),120)}else document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
@@ -55,6 +63,28 @@ function applyNaemaldaeroBrand(){
   if(sub)sub.textContent='AI 요청 · 이미지 편집 · 사진 복원 · 영상화';
 }
 applyNaemaldaeroBrand();
+
+function setupFreeToolSwitchers(){
+  const tools=[['module-create','create'],['module-photo','photo']];
+  tools.forEach(([id,active])=>{
+    const module=document.getElementById(id);
+    if(!module||module.querySelector('.free-tool-switcher'))return;
+    const head=module.querySelector('.module-head');
+    if(!head)return;
+    const nav=document.createElement('div');
+    nav.className='free-tool-switcher';
+    nav.setAttribute('aria-label','무료 도구 전환');
+    [['create','새 이미지 요청문'],['photo','이미지 부분수정']].forEach(([name,label])=>{
+      const btn=document.createElement('button');
+      btn.type='button';
+      btn.textContent=label;
+      btn.classList.toggle('active',name===active);
+      btn.addEventListener('click',()=>switchFreeTool(name));
+      nav.appendChild(btn);
+    });
+    head.insertAdjacentElement('afterend',nav);
+  });
+}
 
 function applyStitchHomeStage1(){
   if(document.getElementById('nmdStitchStage1'))return;
@@ -114,7 +144,7 @@ function applyStitchHomeStage1(){
       </div>
       <div class="nmd-mobile-proof-info"><div><span class="icon">✎</span><span>변경 1: 딸기 토핑 → 블루베리</span></div><div><span class="icon">▣</span><span>유지 6: 케이크 · 접시 · 배경 · 구도 · 조명 · 색감</span></div></div>
     </div>
-    <div class="nmd-hero-actions"><button class="nmd-hero-primary" onclick="openModule('create')">무료로 시작하기 <span>→</span></button></div>
+    <div class="nmd-hero-actions"><button class="nmd-hero-primary" onclick="openModule('photo')">이미지 부분수정 시작하기 <span>→</span></button></div>
   </section>`}
 
   setupStitchCompare();
@@ -130,4 +160,5 @@ function setupStitchCompare(){
   compare.addEventListener('pointerup',()=>dragging=false);compare.addEventListener('pointercancel',()=>dragging=false);
 }
 
+setupFreeToolSwitchers();
 applyStitchHomeStage1();
