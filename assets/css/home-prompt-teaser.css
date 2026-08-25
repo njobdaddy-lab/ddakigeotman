@@ -1,17 +1,12 @@
-/* Home prompt teaser v3 */
+/* Home prompt teaser v4 — reliable individual images */
 .fun-prompts{margin-top:28px;padding:24px 20px;border:1px solid #e6dfd4;border-radius:22px;background:linear-gradient(145deg,#fffefb,#f8f4eb);box-shadow:0 10px 28px rgba(7,27,59,.045)}
 .fun-prompts-head{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:16px}
 .fun-prompts-head h2{margin:0;font-size:25px;letter-spacing:-.8px}.fun-prompts-head p{margin:5px 0 0;color:#747d89;font-size:11px;line-height:1.55}.fun-prompts-head button{border:0;background:transparent;color:#071b3b;font-size:11px;font-weight:950;padding:8px 0;cursor:pointer;white-space:nowrap}
 .fun-prompts-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
 .fun-prompt-card{border:1px solid #e5ded2;background:#fff;border-radius:15px;padding:8px;text-align:left;cursor:pointer;min-width:0;transition:transform .16s ease,box-shadow .16s ease}
 .fun-prompt-card:hover{transform:translateY(-2px);box-shadow:0 9px 22px rgba(7,27,59,.08)}
-.fun-prompt-preview{height:106px;border-radius:11px;overflow:hidden;position:relative;border:1px solid #e4ddd1;background-color:#eee8dc;background-image:url('../examples/fun-sprite-v3.webp?v=sprite3');background-repeat:no-repeat;background-size:200% 300%;image-rendering:auto}.fun-prompt-preview img{display:none!important}.fun-prompt-preview:after{content:"";position:absolute;inset:0;pointer-events:none}
-.fun-prompt-card[data-kind="watercolor"] .fun-prompt-preview{background-position:0 0}.fun-prompt-card[data-kind="watercolor"] .fun-prompt-preview:after{background:linear-gradient(135deg,rgba(255,245,225,.12),rgba(215,232,246,.08));mix-blend-mode:screen}
-.fun-prompt-card[data-kind="webtoon"] .fun-prompt-preview{background-position:100% 0}.fun-prompt-card[data-kind="webtoon"] .fun-prompt-preview:after{box-shadow:inset 0 0 0 2px rgba(7,27,59,.06)}
-.fun-prompt-card[data-kind="clay"] .fun-prompt-preview{background-position:0 50%}.fun-prompt-card[data-kind="clay"] .fun-prompt-preview:after{background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.12),transparent 58%)}
-.fun-prompt-card[data-kind="figure"] .fun-prompt-preview{background-position:100% 50%}
-.fun-prompt-card[data-kind="movie"] .fun-prompt-preview{background-position:0 100%}.fun-prompt-card[data-kind="movie"] .fun-prompt-preview:after{background:linear-gradient(180deg,rgba(7,27,59,.01),rgba(7,27,59,.12))}
-.fun-prompt-card[data-kind="edit"] .fun-prompt-preview{background-position:100% 100%}
+.fun-prompt-preview{height:106px;border-radius:11px;overflow:hidden;position:relative;background:#eee8dc;border:1px solid #e4ddd1}.fun-prompt-preview img{width:100%!important;height:100%!important;object-fit:cover!important;display:block!important;filter:none!important;image-rendering:auto}.fun-prompt-preview:after{content:"";position:absolute;inset:0;pointer-events:none}
+.fun-prompt-card[data-kind="figure"] .fun-prompt-preview{background:#eee8dc}.fun-prompt-card[data-kind="figure"] img{object-fit:cover!important;border:0!important;box-shadow:none!important;border-radius:0!important}
 .fun-prompt-card strong{display:block;margin:9px 1px 0;font-size:13px}.fun-prompt-card small{display:block;margin:3px 1px 1px;color:#7c8591;font-size:9px;line-height:1.35}
 .fun-prompts-foot{display:none}
 
@@ -29,7 +24,7 @@
   .fun-prompts{width:calc(100% - 32px);margin-left:auto;margin-right:auto;padding:18px 14px}
   .fun-prompts-head{display:block;margin-bottom:13px}.fun-prompts-head h2{font-size:21px}.fun-prompts-head p{font-size:10px;margin-top:6px}.fun-prompts-head>button{display:none}
   .fun-prompts-grid{grid-template-columns:repeat(2,1fr);gap:9px}
-  .fun-prompt-preview{height:auto;aspect-ratio:4/5}
+  .fun-prompt-preview{height:auto;aspect-ratio:3/4}
   .fun-prompt-card strong{font-size:12px}
   .fun-prompts-foot{display:block;width:100%;margin-top:12px;border:1px solid #d9d1c4;background:#fff;border-radius:12px;padding:11px 12px;font-weight:950;color:#071b3b}
   .free-tool-switcher-3{gap:4px!important;padding:4px!important}
